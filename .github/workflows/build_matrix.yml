@@ -28,23 +28,16 @@ jobs:
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
         with:
-          owner: 'whyakari'
+          owner: 'MoeKernel'
           repository: 'scripts'
-          access-token: ${{ secrets.TOKEN_GITHUB }}
 
-      - name: Move Script Download Clang-18.0.0
-        working-directory: scripts
+      - name: Move Scripts
+        working-directory: ./scripts
         run: |
-          chmod +x download_clang18.0.0.sh
-          cp download_clang18.0.0.sh ../android_kernel_xiaomi_ginkgo
+          chmod +x ksu_update.sh build_ci download_clang18.0.0.sh
+          cp download_clang18.0.0.sh ksu_update.sh build_count.txt build_ci ../android_kernel_xiaomi_ginkgo
 
-      - name: Move CI Build
-        working-directory: scripts
-        run: |
-          chmod +x ksu_update.sh
-          cp ksu_update.sh build_counter.txt ci_build.py ../android_kernel_xiaomi_ginkgo
-
-      - name: Github set Config Email and Name
+      - name: Github Set Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           git config --global user.email "moenyanuwu@gmail.com"
@@ -55,25 +48,20 @@ jobs:
           sudo apt-get update
           sudo apt-get -y --no-install-recommends install python3 python3-pip git make gcc bc bison flex libssl-dev ccache libelf-dev libncurses-dev bc binutils-dev ca-certificates clang cmake curl file flex git libelf-dev libssl-dev lld make ninja-build python3-dev texinfo u-boot-tools xz-utils zlib1g-dev
 
-      - name: Pip Install Packages
-        working-directory: ./android_kernel_xiaomi_ginkgo
-        run: |
-          pip install Pyrogram TgCrypto
-
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           ./download_clang18.0.0.sh
-          python3 ci_build.py -t development # release
+          ./build_ci
 
       - name: Move CI Build Count
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          cp build_counter.txt ../scripts
+          cp build_count.txt ../scripts
 
       - name: Commit Update
         working-directory: ./scripts
         run: |
-          git add build_counter.txt
-          git commit -m "update build counter"
-          git push origin ${{ matrix.build_type == 'without-ksu' && 'thirteen' }} --force
+          git add build_count.txt
+          git commit -m "update build count"
+          git push origin ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'NO-KSU' && 'without-ksu' }} --force
