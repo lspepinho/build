@@ -17,11 +17,8 @@ jobs:
         build_type: ['without-ksu', 'thirteen']
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Clone Repo Android Kernel
-        uses: whyakari/github-repo-action@v3.1
+        uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
           branch: ${{ matrix.build_type == 'without-ksu' && 'thirteen' }}
@@ -30,7 +27,7 @@ jobs:
           access-token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Clone Repo Scripts
-        uses: whyakari/github-repo-action@v3.1
+        uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'whyakari'
           repository: 'scripts'
