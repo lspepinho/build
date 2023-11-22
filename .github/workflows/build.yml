@@ -19,43 +19,29 @@ jobs:
         uses: whyakari/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'main'
-          owner: 'whyakari'
+          branch: 'thirteen'
+          owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
           access-token: ${{ secrets.TOKEN_GITHUB }}
-
-      - name: Clone Repo kernel_build_actions
-        uses: whyakari/github-repo-action@v3.1
-        with:
-          owner: 'whyakari'
-          repository: 'kernel_build_actions'
-          access-token: ${{ secrets.TOKEN_GITHUB }}
-
-      - name: Move Script Download Clang-18.0.0
-        working-directory: kernel_build_actions
-        run: |
-          chmod +x download_clang18.0.0.sh
-          cp download_clang18.0.0.sh ../android_kernel_xiaomi_ginkgo
 
       - name: Clone Repo Scripts
         uses: whyakari/github-repo-action@v3.1
         with:
-          depth: 1
+          owner: 'MoeKernel'
           branch: 'main'
-          owner: 'whyakari'
           repository: 'scripts'
           access-token: ${{ secrets.TOKEN_GITHUB }}
 
-      - name: Move CI Build
-        working-directory: scripts
+      - name: Move Scripts
+        working-directory: ./scripts
         run: |
-          chmod +x ksu_update.sh
-          cp build_counter.txt ksu_update.sh ci_build.py ../android_kernel_xiaomi_ginkgo
+          chmod +x ksu_update.sh download_clang18.0.0.sh build_ci 
+          cp build_ci download_clang18.0.0.sh build_counter.txt ksu_update.sh ../android_kernel_xiaomi_ginkgo
 
-      - name: Github set Config Email and Name
+      - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          git config --global user.email "akariondev@gmail.com"
+          git config --global user.email "moenyanuwu@gmail.com"
           git config --global user.name "ginkgo"
   
       - name: Install Dependencies
@@ -72,7 +58,7 @@ jobs:
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           ./download_clang18.0.0.sh
-          python3 ci_build.py -t development # release
+          ./build_ci # python3 ci_build.py -t development # release
 
       - name: Move CI Build count
         working-directory: ./android_kernel_xiaomi_ginkgo
