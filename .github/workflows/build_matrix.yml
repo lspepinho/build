@@ -1,4 +1,4 @@
-name: Build Kernel (KSU)
+name: Build Kernel
 
 on:
   workflow_dispatch
@@ -8,18 +8,23 @@ env:
   TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
 
 jobs:
-  build_ci:
+  build_kernel:
+    name: Build Kernel
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        build_type: ['KSU', 'NO-KSU']
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Clone Repo Kernel
+      - name: Clone Repo Android Kernel
         uses: whyakari/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'main'
+          branch: ${{ matrix.build_type == 'KSU' && 'main' || matrix.build_type == 'NO-KSU' && 'non-ksu' }}
           owner: 'whyakari'
           repository: 'android_kernel_xiaomi_ginkgo'
           access-token: ${{ secrets.TOKEN_GITHUB }}
@@ -41,7 +46,7 @@ jobs:
         uses: whyakari/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'main'
+          branch: ${{ matrix.build_type == 'KSU' && 'main' || matrix.build_type == 'NO-KSU' && 'non-ksu' }}
           owner: 'whyakari'
           repository: 'scripts'
           access-token: ${{ secrets.TOKEN_GITHUB }}
@@ -50,19 +55,19 @@ jobs:
         working-directory: scripts
         run: |
           chmod +x ksu_update.sh
-          cp build_counter.txt ksu_update.sh ci_build.py ../android_kernel_xiaomi_ginkgo
+          cp ksu_update.sh build_counter.txt ci_build.py ../android_kernel_xiaomi_ginkgo
 
       - name: Github set Config Email and Name
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           git config --global user.email "akariondev@gmail.com"
           git config --global user.name "ginkgo"
-  
+
       - name: Install Dependencies
         run: |
-         sudo apt-get update
-         sudo apt-get -y --no-install-recommends install python3 python3-pip git make gcc bc bison flex libssl-dev ccache libelf-dev libncurses-dev bc binutils-dev ca-certificates clang cmake curl file flex git libelf-dev libssl-dev lld make ninja-build python3-dev texinfo u-boot-tools xz-utils zlib1g-dev
-      
+          sudo apt-get update
+          sudo apt-get -y --no-install-recommends install python3 python3-pip git make gcc bc bison flex libssl-dev ccache libelf-dev libncurses-dev bc binutils-dev ca-certificates clang cmake curl file flex git libelf-dev libssl-dev lld make ninja-build python3-dev texinfo u-boot-tools xz-utils zlib1g-dev
+
       - name: Pip Install Packages
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
@@ -74,7 +79,7 @@ jobs:
           ./download_clang18.0.0.sh
           python3 ci_build.py -t development # release
 
-      - name: Move CI Build count
+      - name: Move CI Build Count
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           cp build_counter.txt ../scripts
@@ -84,4 +89,4 @@ jobs:
         run: |
           git add build_counter.txt
           git commit -m "update build counter"
-          git push origin main --force
+          git push origin ${{ matrix.build_type == 'KSU' && 'main' || matrix.build_type == 'NO-KSU' && 'non-ksu' }} --force
