@@ -67,4 +67,4 @@ jobs:
         run: |
           git add build_count.txt
           git commit -m "update build counter"
-          git push origin main --force
+          git push origin ksu --force
