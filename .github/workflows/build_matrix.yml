@@ -28,6 +28,7 @@ jobs:
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
         with:
+          branch: ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'NO-KSU' && 'without-ksu' }}
           owner: 'MoeKernel'
           repository: 'scripts'
 
