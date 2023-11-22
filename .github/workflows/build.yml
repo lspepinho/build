@@ -19,7 +19,6 @@ jobs:
           branch: 'thirteen'
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
-          access-token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
@@ -27,7 +26,6 @@ jobs:
           owner: 'MoeKernel'
           branch: 'ksu'
           repository: 'scripts'
-          access-token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Move Scripts
         working-directory: ./scripts
