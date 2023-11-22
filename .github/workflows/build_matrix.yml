@@ -24,7 +24,6 @@ jobs:
           branch: ${{ matrix.build_type == 'without-ksu' && 'thirteen' }}
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
-          access-token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
