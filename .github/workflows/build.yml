@@ -12,11 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Clone Repo Kernel
-        uses: whyakari/github-repo-action@v3.1
+        uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
           branch: 'thirteen'
@@ -25,7 +22,7 @@ jobs:
           access-token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Clone Repo Scripts
-        uses: whyakari/github-repo-action@v3.1
+        uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
           branch: 'main'
