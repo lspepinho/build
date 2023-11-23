@@ -5,7 +5,6 @@ on:
 
 env:
   ZIPNAME: MoeKernel-$(date '+%Y%m%d-%H%M').zip
-  TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
 
 jobs:
   build_kernel:
@@ -38,10 +37,10 @@ jobs:
           chmod +x ksu_update.sh build_ci download_clang18.0.0.sh
           cp download_clang18.0.0.sh ksu_update.sh build_count.txt build_ci ../android_kernel_xiaomi_ginkgo
 
-      - name: Github Set Configs
+      - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          git config --global user.email "moenyanuwu@gmail.com"
+          git config --global user.email "akariondev@gmail.com"
           git config --global user.name "ginkgo"
 
       - name: Install Dependencies
