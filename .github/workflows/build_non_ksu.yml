@@ -3,9 +3,6 @@ name: Build Kernel (NO-KSU)
 on:
   workflow_dispatch
 
-env:
-  ZIPNAME: MoeKernel-$(date '+%Y%m%d-%H%M').zip
-
 jobs:
   build_ci:
     runs-on: ubuntu-latest
@@ -29,8 +26,15 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x download_clang18.0.0.sh build_ci 
-          cp build_ci download_clang18.0.0.sh build_count.txt ../android_kernel_xiaomi_ginkgo
+          chmod +x build_ci 
+          cp build_ci build_count.txt ../android_kernel_xiaomi_ginkgo
+      
+      - name: Restore Cache
+        uses: actions/cache@v3
+        with:
+          path: /home/runner/tc
+          key: ${{ runner.os }}-tc
+        id: tc-cache 
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -46,10 +50,9 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          ./download_clang18.0.0.sh
           ./build_ci
 
-      - name: Move CI Build count
+      - name: Move CI Build Count
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           cp build_count.txt ../scripts
