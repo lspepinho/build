@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Clone Repo kernel_build_actions
+    - name: Clone Repo Scripts
       uses: MoeKernel/github-repo-action@v3.1
       with:
         owner: 'MoeKernel'
@@ -16,7 +16,7 @@ jobs:
         branch: 'ksu'
         access-token: ${{ secrets.TOKEN_GITHUB }}
 
-    - name: Download Clang18.0.0
+    - name: Download Clang
       working-directory: ./scripts
       run: |
         chmod +x download_clang18.0.0.sh
