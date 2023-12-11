@@ -13,6 +13,7 @@ jobs:
       with:
         owner: 'MoeKernel'
         repository: 'scripts'
+        branch: 'ksu'
         access-token: ${{ secrets.TOKEN_GITHUB }}
 
     - name: Download Clang18.0.0
