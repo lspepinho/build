@@ -30,7 +30,7 @@ jobs:
           cp build_ci build_count.txt ../android_kernel_xiaomi_ginkgo
       
       - name: Restore Cache
-        uses: actions/cache@v3
+        uses: MoeKernel/cache@v3
         with:
           path: /home/runner/tc
           key: ${{ runner.os }}-tc
