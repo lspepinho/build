@@ -18,7 +18,7 @@ jobs:
       - name: Update build_count.txt Test
         working-directory: ./scripts
         run: |
-          echo 89 > build_count.txt
+          echo 84 > build_count.txt
 
       - name: Commit Update
         working-directory: ./scripts
@@ -29,4 +29,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin ksu -f
+          git push origin without-ksu -f
