@@ -15,23 +15,6 @@ jobs:
           branch: 'ksu'
           repository: 'scripts'
 
-      - name: Move Scripts
-        working-directory: ./scripts
-        run: |
-          chmod +x ksu_update.sh build_ci 
-          cp build_ci build_count.txt ksu_update.sh ../android_kernel_xiaomi_ginkgo
-
-      - name: Github Configs
-        working-directory: ./android_kernel_xiaomi_ginkgo
-        run: |
-          git config --global user.email "akariondev@gmail.com"
-          git config --global user.name "ginkgo"
-  
-      - name: Move CI Build count
-        working-directory: ./android_kernel_xiaomi_ginkgo
-        run: |
-          cp build_count.txt ../scripts
-
       - name: Commit Update
         working-directory: ./scripts
         run: |
