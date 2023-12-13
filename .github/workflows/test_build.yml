@@ -12,7 +12,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'ksu'
+          branch: 'without-ksu'
           repository: 'scripts'
 
       - name: Update build_count.txt Test
