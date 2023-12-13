@@ -18,7 +18,7 @@ jobs:
       - name: Update build_count.txt Test
         working-directory: ./scripts
         run: |
-          echo 89 >> build_count.txt
+          echo 89 > build_count.txt
 
       - name: Commit Update
         working-directory: ./scripts
