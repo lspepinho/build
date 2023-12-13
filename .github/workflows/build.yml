@@ -57,9 +57,16 @@ jobs:
         run: |
           cp build_count.txt ../scripts
 
+      - name: Github Configs
+        working-directory: ./scripts
+        run: |
+          git config --global user.email "barryofc11@gmail.com"
+          git config --global user.name "Akari"
+
       - name: Commit Update
         working-directory: ./scripts
         run: |
           git add build_count.txt
           git commit -m "update build count"
-          git push origin ksu --force
+          git push origin ksu -f
+        env: ${{ secrets.TOKEN_GITHUB }}
