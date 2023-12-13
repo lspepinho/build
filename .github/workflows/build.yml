@@ -69,4 +69,3 @@ jobs:
           git add build_count.txt
           git commit -m "update build count"
           git push origin ksu -f
-        env: ${{ secrets.TOKEN_GITHUB }}
