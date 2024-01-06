@@ -1,4 +1,4 @@
-name: Cache (GCC, Clang)
+name: Cache
 
 on:
   workflow_dispatch
