@@ -1,4 +1,4 @@
-name: Build Kernel (NO-KSU/KSU) Matrix
+name: Build Kernel (NO-KSU/KSU)
 
 on:
   workflow_dispatch
