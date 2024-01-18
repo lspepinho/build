@@ -19,8 +19,8 @@ jobs:
     - name: Download Clang
       working-directory: ./scripts
       run: |
-        chmod +x download_clang18.0.0.sh
-        ./download_clang18.0.0.sh
+        chmod +x clang.sh
+        ./clang.sh
 
     - name: Setup GCC / GCC32 / Clang18
       run: |
