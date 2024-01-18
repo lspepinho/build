@@ -34,8 +34,8 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x ksu_update.sh build_ci download_clang18.0.0.sh
-          cp download_clang18.0.0.sh ksu_update.sh build_count.txt build_ci ../android_kernel_xiaomi_ginkgo
+          chmod +x ksu_update.sh build_ci clang.sh
+          cp clang.sh ksu_update.sh build_count.txt build_ci ../android_kernel_xiaomi_ginkgo
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -51,7 +51,7 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          ./download_clang18.0.0.sh
+          ./clang.sh
           ./build_ci
 
       - name: Move CI Build Count
