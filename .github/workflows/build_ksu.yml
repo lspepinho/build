@@ -52,7 +52,7 @@ jobs:
         run: |
           ./build_ci
 
-      - name: Move CI Build count
+      - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           cp build_count.txt ../scripts
