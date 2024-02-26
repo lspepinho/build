@@ -37,7 +37,13 @@ jobs:
         with:
           path: /home/runner/tc
           key: ${{ runner.os }}-tc
-        id: tc-cache 
+        id: tc-cache
+
+      - name: Move Script Clang
+        working-directory: ./scripts
+        run: |
+          chmod +x clang.sh
+          cp clang.sh ../android_kernel_xiaomi_ginkgo
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
