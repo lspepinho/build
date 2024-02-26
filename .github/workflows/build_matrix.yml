@@ -3,9 +3,6 @@ name: Build Kernel (NO-KSU/KSU)
 on:
   workflow_dispatch
 
-env:
-  ZIPNAME: MoeKernel-$(date '+%Y%m%d-%H%M').zip
-
 jobs:
   build_kernel:
     name: Build Kernel
@@ -34,8 +31,8 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x ksu_update.sh build_ci clang.sh
-          cp clang.sh ksu_update.sh build_count.txt build_ci ../android_kernel_xiaomi_ginkgo
+          chmod +x ksu_update.sh bot.py clang.sh
+          cp clang.sh ksu_update.sh build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -51,8 +48,7 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          ./clang.sh
-          ./build_ci
+          python3 bot.py -t dev # or release
 
       - name: Move CI Build Count
         working-directory: ./android_kernel_xiaomi_ginkgo
