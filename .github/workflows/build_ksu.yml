@@ -60,7 +60,7 @@ jobs:
          echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
          echo "API_ID=${{ secrets.API_ID }}" >> .env
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
-         echo "BOT_TOKEN=${{ secrets.BOT_TOKEN_PIXELOS }}" >> .env
+         echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
 
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
