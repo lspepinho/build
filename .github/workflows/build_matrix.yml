@@ -28,6 +28,13 @@ jobs:
           owner: 'MoeKernel'
           repository: 'scripts'
 
+      - name: Restore Cache
+        uses: MoeKernel/cache@v3
+        with:
+          path: /home/runner/tc
+          key: ${{ runner.os }}-tc
+        id: tc-cache
+
       - name: Move Scripts
         working-directory: ./scripts
         run: |
