@@ -17,7 +17,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: ${{ matrix.build_type == 'KSU' && 'thirteen' || matrix.build_type == 'NO-KSU' && 'without-ksu' }}
+          branch: ${{ matrix.build_type == 'KSU' && 'fourteen' || matrix.build_type == 'NO-KSU' && 'without-ksu' }}
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 
