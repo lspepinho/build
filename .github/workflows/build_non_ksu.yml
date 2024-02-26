@@ -26,8 +26,8 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x build_ci 
-          cp build_ci build_count.txt ../android_kernel_xiaomi_ginkgo
+          chmod +x bot.py 
+          cp bot.py build_count.txt ../android_kernel_xiaomi_ginkgo
       
       - name: Restore Cache
         uses: MoeKernel/cache@v3
@@ -47,11 +47,23 @@ jobs:
          sudo apt-get update
          sudo apt-get -y --no-install-recommends install python3 python3-pip git make gcc bc bison flex libssl-dev ccache libelf-dev libncurses-dev bc binutils-dev ca-certificates clang cmake curl file flex git libelf-dev libssl-dev lld make ninja-build python3-dev texinfo u-boot-tools xz-utils zlib1g-dev
 
+      - name: Pip Install Packages
+        working-directory: ./android_kernel_xiaomi_ginkgo
+        run: |
+          pip install Pyrogram TgCrypto load_dotenv
+
+      - name: Export Variables
+        run: |
+         echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
+         echo "API_ID=${{ secrets.API_ID }}" >> .env
+         echo "API_HASH=${{ secrets.API_HASH }}" >> .env
+         echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          ./build_ci
-
+          python3 bot.py -t dev # or release.
+          
       - name: Move CI Build Count
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
