@@ -1,16 +1,7 @@
 name: Build Kernel (KSU)
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Choose branch'
-        required: true
-        default: 'fourteen'
-        type: choise
-        options:
-          - test
-          - fourteen
+  workflow_dispatch
 
 env:
   TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
@@ -24,7 +15,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: ${{ github.event.inputs.branch }}
+          branch: 'fourteen'
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 
