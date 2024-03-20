@@ -7,6 +7,7 @@ on:
         description: 'Choose branch'
         required: true
         default: 'fourteen'
+        type: choise
         options:
           - 'test'
           - 'fourteen'
