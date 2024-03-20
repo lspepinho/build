@@ -23,7 +23,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'ksu'
+          branch: 'dynamic'
           repository: 'scripts'
 
       - name: Move Scripts
