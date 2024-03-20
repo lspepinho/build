@@ -9,8 +9,8 @@ on:
         default: 'fourteen'
         type: choise
         options:
-          - 'test'
-          - 'fourteen'
+          - test
+          - fourteen
 
 env:
   TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
