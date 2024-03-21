@@ -1,4 +1,4 @@
-name: Build Kernel (KSU)
+name: Build Kernel (KSU/Dynamic/PixelOS)
 
 on:
   workflow_dispatch
