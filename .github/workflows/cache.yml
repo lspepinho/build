@@ -39,12 +39,6 @@ jobs:
         chmod +x clang.sh
         ./clang.sh # download clang.
 
-    - name: Download Clang
-      working-directory: ./scripts
-      run: |
-        chmod +x clang.sh
-        ./clang.sh
-
     - name: Setup GCC / GCC32 / Clang
       run: |
         TC_DIR="$HOME/tc/clang-19.0.0"
