@@ -35,6 +35,7 @@ jobs:
 
     - name: Download Clang
       if: steps.check-update.outcome == 'success'
+      working-directory: ./scripts
       run: |
         chmod +x clang.sh
         ./clang.sh # download clang.
