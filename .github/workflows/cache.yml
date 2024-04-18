@@ -16,6 +16,29 @@ jobs:
         branch: 'ksu'
         access-token: ${{ secrets.TOKEN_GITHUB }}
 
+    - name: Export Variable TOKEN_GITHUB
+      working-directory: ./scripts
+      run: |
+        echo "TOKEN_GITHUB=${{ secrets.TOKEN_GITHUB }}" >> .env
+
+    - name: Install Depends
+      working-directory: ./scripts
+      run: |
+        pip install load_dotenv
+
+    - name: Check for Clang Update
+      id: check-update
+      working-directory: ./scripts
+      run: |
+        python3 update.py
+      continue-on-error: true
+
+    - name: Download Clang
+      if: steps.check-update.outcome == 'success'
+      run: |
+        chmod +x clang.sh
+        ./clang.sh # download clang.
+
     - name: Download Clang
       working-directory: ./scripts
       run: |
