@@ -1,4 +1,4 @@
-name: Build Kernel (KSU/Fourteen)
+name: Build Kernel (KSU/Thirteen)
 
 on:
   workflow_dispatch
@@ -15,7 +15,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'fourteen'
+          branch: 'thirteen'
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 

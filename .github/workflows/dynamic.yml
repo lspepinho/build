@@ -1,4 +1,4 @@
-name: Build Kernel (KSU/Fourteen)
+name: Build Kernel (KSU/Dynamic)
 
 on:
   workflow_dispatch
@@ -15,7 +15,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'fourteen'
+          branch: 'dynamic'
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 
@@ -23,7 +23,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'ksu'
+          branch: 'dynamic'
           repository: 'scripts'
 
       - name: Move Scripts
@@ -87,4 +87,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin ksu -f
+          git push origin dynamic -f

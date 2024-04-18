@@ -1,10 +1,7 @@
-name: Build Kernel (KSU/Fourteen)
+name: Build Kernel (NO-KSU/Dynamic)
 
 on:
   workflow_dispatch
-
-env:
-  TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
 
 jobs:
   build_ci:
@@ -15,7 +12,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'fourteen'
+          branch: 'dynamic_without-ksu'
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 
@@ -23,27 +20,21 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'ksu'
+          branch: 'dynamic_without-ksu'
           repository: 'scripts'
 
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x ksu_update.sh bot.py
-          cp bot.py build_count.txt ksu_update.sh ../android_kernel_xiaomi_ginkgo
-
+          chmod +x bot.py 
+          cp bot.py build_count.txt ../android_kernel_xiaomi_ginkgo
+      
       - name: Restore Cache
         uses: MoeKernel/cache@v3
         with:
           path: /home/runner/tc
           key: ${{ runner.os }}-tc
-        id: tc-cache
-
-      - name: Move Script Clang
-        working-directory: ./scripts
-        run: |
-          chmod +x clang.sh
-          cp clang.sh ../android_kernel_xiaomi_ginkgo
+        id: tc-cache 
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -73,7 +64,7 @@ jobs:
         run: |
           python3 bot.py -t dev # or release.
           
-      - name: Move CI Build
+      - name: Move CI Build Count
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           cp build_count.txt ../scripts
@@ -85,6 +76,6 @@ jobs:
           git config --global user.name "Akari"
           git remote set-url origin https://${{ secrets.TOKEN_GITHUB }}@github.com/MoeKernel/scripts.git
 
-          git add build_count.txt
+          git add bot.py build_count.txt
           git commit -m "update build count"
-          git push origin ksu -f
+          git push origin dynamic_without-ksu -f
