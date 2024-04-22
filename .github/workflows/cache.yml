@@ -35,8 +35,8 @@ jobs:
         python3 update.py
       continue-on-error: true
 
-    - name: Clear cache
-      uses: MyAlbum/purge-cache@v1
+    - name: Purge cache for Moe
+      uses: MoeKernel/purge-cache@v2.1.0
       with:
         accessed: true
         created: true
