@@ -35,11 +35,13 @@ jobs:
         python3 update.py
       continue-on-error: true
 
-    - name: Purge cache for Moe
+    - name: Purge Cache
       uses: MoeKernel/purge-cache@v2.1.0
       with:
         accessed: true
         created: true
+        debug: true
+        max-age: 1
 
     - name: Download Clang
       if: steps.check-update.outcome == 'success'
