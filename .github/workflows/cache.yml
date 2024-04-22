@@ -35,6 +35,12 @@ jobs:
         python3 update.py
       continue-on-error: true
 
+    - name: Clear cache
+      uses: MyAlbum/purge-cache@v1
+      with:
+        accessed: true
+        created: true
+
     - name: Download Clang
       if: steps.check-update.outcome == 'success'
       working-directory: ./scripts
