@@ -42,6 +42,7 @@ jobs:
         created: true
         debug: true
         max-age: 1
+        token: ${{ secrets.TOKEN_GITHUB }}
 
     - name: Download Clang
       if: steps.check-update.outcome == 'success'
