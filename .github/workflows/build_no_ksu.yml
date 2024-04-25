@@ -29,7 +29,7 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x bot.py 
+          chmod +x bot.py
           cp bot.py build_count.txt ../android_kernel_xiaomi_ginkgo
       
       - name: Restore Cache
@@ -76,6 +76,7 @@ jobs:
       - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
+          cat build_count.txt
           cp build_count.txt ../scripts
 
       - name: Commit Update
