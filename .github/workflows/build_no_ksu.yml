@@ -3,6 +3,9 @@ name: Build Kernel (NO-KSU)
 on:
   workflow_dispatch
 
+env:
+  TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+
 jobs:
   build_ci:
     runs-on: ubuntu-latest
@@ -70,7 +73,7 @@ jobs:
         run: |
           python3 bot.py -t dev # or release.
           
-      - name: Move CI Build Count
+      - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           cp build_count.txt ../scripts
