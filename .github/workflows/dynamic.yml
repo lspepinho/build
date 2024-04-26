@@ -39,12 +39,6 @@ jobs:
           key: ${{ runner.os }}-tc
         id: tc-cache
 
-      - name: Move Script Clang
-        working-directory: ./scripts
-        run: |
-          chmod +x clang.sh
-          cp clang.sh ../android_kernel_xiaomi_ginkgo
-
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
@@ -71,7 +65,7 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          python3 bot.py -t dev # or release.
+          python3 bot.py -t development # or release.
           
       - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
