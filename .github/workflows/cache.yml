@@ -10,27 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Clone Repo Scripts
+    - name: Clone Repo Clang
       uses: MoeKernel/github-repo-action@v3.1
       with:
         owner: 'MoeKernel'
-        repository: 'scripts'
-        branch: 'ksu'
+        repository: 'clang'
+        branch: 'main'
         access-token: ${{ secrets.TOKEN_GITHUB }}
 
-    - name: Export Variable TOKEN_GITHUB
-      working-directory: ./scripts
+    - name: Export Variables
+      working-directory: ./clang
       run: |
         echo "TOKEN_GITHUB=${{ secrets.TOKEN_GITHUB }}" >> .env
 
     - name: Install Depends
-      working-directory: ./scripts
+      working-directory: ./clang
       run: |
         pip install load_dotenv
 
-    - name: Check for Clang Update
+    - name: Check Clang Update
       id: check-update
-      working-directory: ./scripts
+      working-directory: ./clang
       run: |
         python3 update.py
       continue-on-error: true
@@ -46,10 +46,10 @@ jobs:
 
     - name: Download Clang
       if: steps.check-update.outcome == 'success'
-      working-directory: ./scripts
+      working-directory: ./clang
       run: |
         chmod +x clang.sh
-        ./clang.sh # download clang.
+        ./clang.sh
 
     - name: Setup GCC / GCC32 / Clang
       run: |
