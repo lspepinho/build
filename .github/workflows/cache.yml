@@ -51,6 +51,11 @@ jobs:
         chmod +x clang.sh
         ./clang.sh
 
+    - name: Create Release to GitHub.
+      working-directory: ./clang
+      run: |
+        python3 create_release.py
+
     - name: Setup GCC / GCC32 / Clang
       run: |
         TC_DIR="$HOME/tc/clang-19.0.0"
