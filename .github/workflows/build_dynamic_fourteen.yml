@@ -62,6 +62,12 @@ jobs:
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
 
+      - name: Setup ccache
+        working-directory: ./android_kernel_xiaomi_ginkgo
+        uses: hendrikmuhs/ccache-action@v1
+        with:
+          max-size: 5G
+
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
