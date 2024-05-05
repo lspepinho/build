@@ -16,13 +16,13 @@ jobs:
         uses: MoeKernel/cache@v3
         with:
           path: /home/runner/.config/ccache
-          key: ${{ github.os }}-ccache-test
+          key: ${{ github.os }}-ccache
 
       - name: Ccache for MoeKernel
         uses: MoeKernel/ccache-action@v1.2.13
         with:
           max-size: 5G
-          key: ${{ github.os }}-ccache-test
+          key: ${{ github.os }}-ccache
 
       - name: Check Free Space
         run: |
@@ -42,15 +42,6 @@ jobs:
       - name: Compile Test
         run: |
           ccache gcc -o test test.c
-
-      - name: Simulate Cache
-        run: |
-          printf "Simulating cache...\n"
-          if [ -d /home/runner/.config/ccache ]; then
-            printf "Cache found!\n"
-          else
-            printf "Cache not found!\n"
-          fi
 
       - name: Cleanup
         run: |
