@@ -81,6 +81,13 @@ jobs:
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           python3 bot.py -t dev # or release.
+
+      - name: CCache Create
+        id: ccache
+        uses: MoeKernel/cache/save@v3
+        with:
+          path: /home/runner/.config/ccache
+          key: ${{ runner.os }}-ccache
           
       - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
