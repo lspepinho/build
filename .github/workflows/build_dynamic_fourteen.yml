@@ -72,6 +72,11 @@ jobs:
           echo "Free space:"
           df -h
 
+      - name: Check Free RAM
+        run: |
+          echo "Free RAM:"
+          free -h
+
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
