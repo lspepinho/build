@@ -1,0 +1,45 @@
+name: Build Test CCache
+
+on:
+  workflow_dispatch
+
+env:
+  TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+
+jobs:
+  build_ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Restore CCache Test
+        id: ccache_test
+        uses: MoeKernel/cache@v3
+        with:
+          path: /home/runner/.config/ccache
+          key: ccache-${{ github.run_id }}-test
+
+      - name: Ccache for MoeKernel
+        uses: MoeKernel/ccache-action@v1.2.13
+        with:
+          max-size: 5G
+          key: ccache-${{ github.run_id }}
+
+      - name: Check Free Space
+        run: |
+          echo "Free space:"
+          df -h
+
+      - name: Check Free RAM
+        run: |
+          echo "Free RAM:"
+          free -h
+
+      - name: Compile Test
+        run: |
+          touch skks.txt
+
+      - name: CCache Create
+        uses: MoeKernel/cache/save@v3
+        with:
+          path: /home/runner/.config/ccache
+          key: ccache-${{ github.run_id }}
