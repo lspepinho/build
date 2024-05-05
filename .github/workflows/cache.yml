@@ -83,13 +83,6 @@ jobs:
         path: /home/runner/tc
         key: ${{ runner.os }}-tc
 
-    - name: CCache Create
-      id: ccache
-      uses: MoeKernel/cache/save@v3
-      with:
-        path: /home/runner/.config/ccache
-        key: ${{ runner.os }}-ccache
-
     - name: Display cached directories
       run: |
         ls -R $HOME/tc/
