@@ -36,7 +36,7 @@ jobs:
 
       - name: Create Test File
         run: |
-          printf "#include <stdio.h>\n\nint main() {\n    printf(\"Hello, world!\\n\");\n    return 0;\n}\n" > test.c
+          printf "#include <stdio.h>\n\nint main() {\n    printf(\"Hello, world!\\");\n    return 0;\n}\n" > test.c
           cat test.c
 
       - name: Compile Test
