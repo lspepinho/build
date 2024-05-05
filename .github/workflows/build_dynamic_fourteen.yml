@@ -40,11 +40,12 @@ jobs:
         id: tc-cache
 
       - name: Restore CCache
+        id: ccache
         uses: MoeKernel/cache@v3
         with:
           path: /home/runner/.config/ccache
           #key: ${{ runner.os }}-ccache
-          key: ccache-${{ steps.ccache.outputs.cache-key }}
+          key: ccache-${{ steps.ccache_test.outputs.cache-key }}
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -70,7 +71,7 @@ jobs:
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
 
       - name: Ccache for MoeKernel
-        id: ccache
+        id: ccache_test
         uses: MoeKernel/ccache-action@v1.2.13
         with:
           max-size: 5G
