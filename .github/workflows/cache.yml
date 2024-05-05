@@ -60,6 +60,12 @@ jobs:
       run: |
         export CCACHE_DIR="$HOME/.config/ccache"
 
+    - name: Ccache for MoeKernel
+      uses: MoeKernel/ccache-action@v1.2.13
+      with:
+        max-size: 5G
+        key: ${{ runner.os }}-ccache
+
     - name: Setup GCC / GCC32 / Clang
       run: |
         TC_DIR="$HOME/tc/clang-19.0.0"
