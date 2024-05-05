@@ -73,6 +73,7 @@ jobs:
         uses: MoeKernel/ccache-action@v1.2.13
         with:
           max-size: 5G
+          key: ${{ runner.os }}-ccache
 
       - name: Check Free Space
         run: |
