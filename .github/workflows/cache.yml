@@ -58,7 +58,7 @@ jobs:
 
     - name: Setup for CCACHE
       run: |
-        CCACHE_DIR="$HOME/.ccache"
+        CCACHE_DIR="$HOME/.config/ccache"
 
     - name: Setup GCC / GCC32 / Clang
       run: |
@@ -87,7 +87,7 @@ jobs:
       id: ccache
       uses: MoeKernel/cache/save@v3
       with:
-        path: /home/runner/.ccache
+        path: /home/runner/.config/ccache
         key: ${{ runner.os }}-ccache
 
     - name: Display cached directories
