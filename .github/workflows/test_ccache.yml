@@ -36,7 +36,7 @@ jobs:
 
       - name: Create Test File
         run: |
-          wget https://gist.githubusercontent.com/whyakari/ecf9686abd8dc14380e5f7f4d262e91b/raw/3d1baf9da8ae3d4826d9ba4e2f7254c975c6e31d/test.c
+          wget https://gist.githubusercontent.com/whyakari/ecf9686abd8dc14380e5f7f4d262e91b/raw/6c489c6ab9016d0957d3cd0d3f30f57f499687f9/test.c
           cat test.c
 
       - name: Compile Test
