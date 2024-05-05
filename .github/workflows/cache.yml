@@ -56,16 +56,6 @@ jobs:
       run: |
         python3 create_release.py
 
-    - name: Setup for CCache
-      run: |
-        export CCACHE_DIR="$HOME/.config/ccache"
-
-    - name: Ccache for MoeKernel
-      uses: MoeKernel/ccache-action@v1.2.13
-      with:
-        max-size: 5G
-        key: ${{ runner.os }}-ccache
-
     - name: Setup GCC / GCC32 / Clang
       run: |
         TC_DIR="$HOME/tc/clang-19.0.0"
@@ -88,14 +78,3 @@ jobs:
       with:
         path: /home/runner/tc
         key: ${{ runner.os }}-tc
-
-    - name: CCache Create
-      id: ccache
-      uses: MoeKernel/cache/save@v3
-      with:
-        path: /home/runner/.config/ccache
-        key: ${{ runner.os }}-ccache
-
-    - name: Display cached directories
-      run: |
-        ls -R $HOME/tc/
