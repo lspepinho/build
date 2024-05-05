@@ -84,11 +84,16 @@ jobs:
         run: |
           python3 bot.py -t dev # or release.
 
-      - name: CCache Create
-        uses: MoeKernel/cache/save@v3
+      - name: Get Cache (CCache)
+        uses: MoeKernel/cache@v3
         with:
           path: /home/runner/.config/ccache
-          key: ${{ runner.os }}-ccache
+          key: ${{ runner.os }}-ccache-${{ github.head_ref }}-${{ hashFiles(...) }}
+
+      - name: Enforce CCache Update
+        run: |
+          STATE_CACHE_KEY="${{ runner.os }}-ccache-${{ github.head_ref }}-${{ hashFiles(...) }}"
+          echo "STATE_CACHE_KEY=${STATE_CACHE_KEY}" >> $GITHUB_ENV
 
       - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
