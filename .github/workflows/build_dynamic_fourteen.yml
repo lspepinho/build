@@ -39,13 +39,6 @@ jobs:
           key: ${{ runner.os }}-tc
         id: tc-cache
 
-      - name: Restore CCache
-        id: ccache
-        uses: MoeKernel/cache@v3
-        with:
-          path: /home/runner/.config/ccache
-          key: ${{ runner.os }}-ccache
-
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
@@ -83,17 +76,6 @@ jobs:
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
           python3 bot.py -t dev # or release.
-
-      - name: Get Cache (CCache)
-        uses: MoeKernel/cache@v3
-        with:
-          path: /home/runner/.config/ccache
-          key: ${{ runner.os }}-ccache-${{ github.head_ref }}
-
-      - name: Enforce CCache Update
-        run: |
-          STATE_CACHE_KEY="${{ runner.os }}-ccache-${{ github.head_ref }}"
-          echo "STATE_CACHE_KEY=${STATE_CACHE_KEY}" >> $GITHUB_ENV
 
       - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
