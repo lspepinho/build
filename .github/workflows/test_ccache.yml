@@ -12,17 +12,17 @@ jobs:
 
     steps:
       - name: Restore CCache Test
-        id: ccache_test
+        id: ccache
         uses: MoeKernel/cache@v3
         with:
           path: /home/runner/.config/ccache
-          key: ccache-${{ github.run_id }}-test
+          key: ${{ github.os }}-ccache-test
 
       - name: Ccache for MoeKernel
         uses: MoeKernel/ccache-action@v1.2.13
         with:
           max-size: 5G
-          key: ccache-${{ github.run_id }}
+          key: ${{ github.os }}-ccache-test
 
       - name: Check Free Space
         run: |
@@ -42,4 +42,4 @@ jobs:
         uses: MoeKernel/cache/save@v3
         with:
           path: /home/runner/.config/ccache
-          key: ccache-${{ github.run_id }}
+          key: ${{ github.os }}-ccache-test
