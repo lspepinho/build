@@ -26,21 +26,32 @@ jobs:
 
       - name: Check Free Space
         run: |
-          echo "Free space:"
+          printf "Free space:\n"
           df -h
 
       - name: Check Free RAM
         run: |
-          echo "Free RAM:"
+          printf "Free RAM:\n"
           free -h
 
       - name: Create Test File
         run: |
-          echo "This is a test file." > test.txt
-          ccache test.txt
+          printf "#include <stdio.h>\n\nint main() {\n    printf(\"Hello, world!\\n\");\n    return 0;\n}\n" > test.c
+          cat test.c
 
-      - name: CCache Create
-        uses: MoeKernel/cache/save@v3
-        with:
-          path: /home/runner/.config/ccache
-          key: ${{ github.os }}-ccache-test
+      - name: Compile Test
+        run: |
+          ccache gcc -o test test.c
+
+      - name: Simulate Cache
+        run: |
+          printf "Simulating cache...\n"
+          if [ -f /home/runner/.config/ccache/test.c ]; then
+            printf "Cache found!\n"
+          else
+            printf "Cache not found!\n"
+          fi
+
+      - name: Cleanup
+        run: |
+          rm -f test.c test
