@@ -39,6 +39,13 @@ jobs:
           key: ${{ runner.os }}-tc
         id: tc-cache
 
+      - name: Restore CCache
+        uses: MoeKernel/cache@v3
+        with:
+          path: /home/runner/.config/ccache
+          key: ${{ runner.os }}-ccache
+        #id: ccache
+
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
