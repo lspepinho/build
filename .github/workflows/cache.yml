@@ -56,9 +56,9 @@ jobs:
       run: |
         python3 create_release.py
 
-    - name: Setup for CCACHE
+    - name: Setup for CCache
       run: |
-        CCACHE_DIR="$HOME/.config/ccache"
+        export CCACHE_DIR="$HOME/.config/ccache"
 
     - name: Setup GCC / GCC32 / Clang
       run: |
@@ -82,6 +82,13 @@ jobs:
       with:
         path: /home/runner/tc
         key: ${{ runner.os }}-tc
+
+    - name: CCache Create
+      id: ccache
+      uses: MoeKernel/cache/save@v3
+      with:
+        path: /home/runner/.config/ccache
+        key: ${{ runner.os }}-ccache
 
     - name: Display cached directories
       run: |
