@@ -67,6 +67,11 @@ jobs:
         with:
           max-size: 5G
 
+      - name: Check Free Space
+        run: |
+          echo "Free space:"
+          df -h
+
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
