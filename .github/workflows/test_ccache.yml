@@ -46,7 +46,7 @@ jobs:
       - name: Simulate Cache
         run: |
           printf "Simulating cache...\n"
-          if [ -f /home/runner/.config/ccache/test.c ]; then
+          if [ -d /home/runner/.config/ccache ]; then
             printf "Cache found!\n"
           else
             printf "Cache not found!\n"
