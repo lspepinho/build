@@ -44,7 +44,7 @@ jobs:
         with:
           path: /home/runner/.config/ccache
           #key: ${{ runner.os }}-ccache
-          key: ${{ steps.ccache.outputs.cache-key }}
+          key: ccache-${{ steps.ccache.outputs.cache-key }}
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
