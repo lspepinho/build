@@ -63,7 +63,6 @@ jobs:
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
 
       - name: Ccache for MoeKernel
-        working-directory: ./android_kernel_xiaomi_ginkgo
         uses: MoeKernel/ccache-action@v1.2.13
         with:
           max-size: 5G
