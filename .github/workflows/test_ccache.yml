@@ -34,9 +34,10 @@ jobs:
           echo "Free RAM:"
           free -h
 
-      - name: Compile Test
+      - name: Create Test File
         run: |
-          touch skks.txt
+          echo "This is a test file." > test.txt
+          ccache test.txt
 
       - name: CCache Create
         uses: MoeKernel/cache/save@v3
