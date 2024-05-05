@@ -88,11 +88,11 @@ jobs:
         uses: MoeKernel/cache@v3
         with:
           path: /home/runner/.config/ccache
-          key: ${{ runner.os }}-ccache-${{ github.head_ref }}-${{ hashFiles("/home/runner/.config/ccache") }}
+          key: ${{ runner.os }}-ccache-${{ github.head_ref }}
 
       - name: Enforce CCache Update
         run: |
-          STATE_CACHE_KEY="${{ runner.os }}-ccache-${{ github.head_ref }}-${{ hashFiles("/home/runner/.config/ccache") }}"
+          STATE_CACHE_KEY="${{ runner.os }}-ccache-${{ github.head_ref }}"
           echo "STATE_CACHE_KEY=${STATE_CACHE_KEY}" >> $GITHUB_ENV
 
       - name: Move CI Build
