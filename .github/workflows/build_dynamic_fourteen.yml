@@ -44,8 +44,7 @@ jobs:
         uses: MoeKernel/cache@v3
         with:
           path: /home/runner/.config/ccache
-          #key: ${{ runner.os }}-ccache
-          key: ccache-${{ steps.ccache_test.outputs.cache-key }}
+          key: ${{ runner.os }}-ccache
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -69,14 +68,6 @@ jobs:
          echo "API_ID=${{ secrets.API_ID }}" >> .env
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
-
-      - name: Ccache for MoeKernel
-        id: ccache_test
-        uses: MoeKernel/ccache-action@v1.2.13
-        with:
-          max-size: 5G
-          #key: ${{ runner.os }}-ccache
-          key: ccache-${{ github.run_id }}
 
       - name: Check Free Space
         run: |
