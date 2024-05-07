@@ -1,8 +1,10 @@
 name: Cache
+
 on:
-  workflow_dispatch: null
+  workflow_dispatch:
   schedule:
-    - cron: "0 0 * * * # Latest release:"
+    - cron: "0 0 * * *"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,11 +30,10 @@ jobs:
         uses: MoeKernel/set-cron-schedule-action@v2.0
         with:
           token: ${{ secrets.TOKEN_GITHUB }}
-          cron: >
-            0 0 * * * # Latest release: ${{
-            steps.check-for-new-release.outputs.latest_release }}
+          cron: "0 0 * * *"
           workflow: cache.yml
           message: Update cron schedule for new release
+
       - name: Clone Repo Clang
         uses: MoeKernel/github-repo-action@v3.1
         with:
