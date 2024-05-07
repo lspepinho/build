@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Check for new release
-      uses: actions/github-script@v4
+      uses: MoeKernel/github-script@v4
       with:
         script: |
            const { data: releases } = await github.repos.listReleases({
