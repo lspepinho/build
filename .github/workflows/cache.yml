@@ -9,27 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for new release
-        uses: MoeKernel/github-script@v4
-        with:
-          script: >
-            const { data: releases } = await github.repos.listReleases({
-              owner: 'ZyCromerZ',
-              repo: 'Clang'
-            });
-
-            const latestRelease = releases[0];
-            console.log(`Latest release tag: ${latestRelease.tag_name}`);
-            require('fs').writeFileSync('latest_release.txt', latestRelease.tag_name);
-  
-      - name: Set cron schedule
-        uses: MoeKernel/set-cron-schedule-action@v2.0
-        with:
-          token: ${{ secrets.TOKEN_GITHUB }}
-          cron: "0 0 * * *"
-          workflow: cache.yml
-          message: Update cron schedule for new release
-
       - name: Clone Repo Clang
         uses: MoeKernel/github-repo-action@v3.1
         with:
