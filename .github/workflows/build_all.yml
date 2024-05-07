@@ -38,8 +38,13 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x ksu_update.sh bot.py
-          cp ksu_update.sh build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
+          if [ "${{ matrix.build_type }}" == 'KSU' && 'ksu' || "${{ matrix.build_type }}" == 'KSU_DYNAMIC' && 'ksu_dynamic']; then
+            chmod +x ksu_update.sh bot.py
+            cp ksu_update.sh build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
+          else
+            chmod +x bot.py
+            cp build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
+          fi
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
