@@ -18,14 +18,10 @@ jobs:
               repo: 'Clang'
             });
 
-
             const latestRelease = releases[0];
-
             console.log(`Latest release tag: ${latestRelease.tag_name}`);
-
-
-            require('fs').writeFileSync('latest_release.txt',
-            latestRelease.tag_name);
+            require('fs').writeFileSync('latest_release.txt', latestRelease.tag_name);
+  
       - name: Set cron schedule
         uses: MoeKernel/set-cron-schedule-action@v2.0
         with:
