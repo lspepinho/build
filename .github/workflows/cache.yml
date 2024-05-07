@@ -3,7 +3,7 @@ name: Cache
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * *"
+    - cron: "0 * * * *"
 
 jobs:
   build:
@@ -37,20 +37,24 @@ jobs:
           repository: clang
           branch: main
           access-token: ${{ secrets.TOKEN_GITHUB }}
+
       - name: Export Variables
         working-directory: ./clang
         run: |
           echo "TOKEN_GITHUB=${{ secrets.TOKEN_GITHUB }}" >> .env
+
       - name: Install Depends
         working-directory: ./clang
         run: |
           pip install -r requirements.txt
+
       - name: Check Clang Update
         id: check-update
         working-directory: ./clang
         run: |
           python3 update.py
         continue-on-error: true
+
       - name: Purge Cache
         uses: MoeKernel/purge-cache@v2.1.0
         with:
@@ -59,16 +63,19 @@ jobs:
           debug: true
           max-age: 1
           token: ${{ secrets.TOKEN_GITHUB }}
+
       - name: Download Clang
         if: steps.check-update.outcome == 'success'
         working-directory: ./clang
         run: |
           chmod +x clang.sh
           ./clang.sh
+
       - name: Create Release to GitHub.
         working-directory: ./clang
         run: |
           python3 create_release.py
+
       - name: Setup GCC / GCC32 / Clang
         run: |
           TC_DIR="$HOME/tc/clang-19.0.0"
@@ -84,6 +91,7 @@ jobs:
               echo "gcc_32 not found! Cloning to ${GCC_32_DIR}..."
               git clone --depth=1 -b 14 https://github.com/ZyCromerZ/arm-zyc-linux-gnueabi ${GCC_32_DIR}
           fi
+
       - name: Cache Create
         id: tc-cache
         uses: MoeKernel/cache/save@v3
