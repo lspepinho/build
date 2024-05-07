@@ -25,7 +25,7 @@ jobs:
            require('fs').writeFileSync('latest_release.txt', latestRelease.tag_name);
 
     - name: Set cron schedule
-      uses: MoeKernel/set-cron-schedule-action@v2
+      uses: MoeKernel/set-cron-schedule-action@v2.1.0
       with:
         token: ${{ secrets.TOKEN_GITHUB }}
         cron: |
