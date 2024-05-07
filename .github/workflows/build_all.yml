@@ -10,22 +10,21 @@ jobs:
 
     strategy:
       matrix:
-        build_type: ['KSU', 'NO-KSU']
-        # workflow_name: ['Build Kernel (KSU/Dynamic/Fourteen)', 'Build Kernel (KSU/Fourteen)', 'Build Kernel (NO-KSU)', 'Build Kernel (NOKSU/Dynamic/Fourteen)']
+        build_type: ['KSU', 'NO-KSU', "KSU_DYNAMIC", "NOKSU_DYNAMIC"]
 
     steps:
       - name: Clone Repo Android Kernel
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: ${{ matrix.build_type == 'KSU' && 'fourteen' || matrix.build_type == 'KSU' && 'fourteen_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NO-KSU' && 'fourteen_dynamic_noksu' }}
+          branch: ${{ matrix.build_type == 'KSU' && 'fourteen' || matrix.build_type == 'KSU_DYNAMIC' && 'fourteen_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'fourteen_dynamic_noksu' }}
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
         with:
-          branch: ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NO-KSU' && 'noksu_dynamic' }}
+          branch: ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU_DYNAMIC' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'noksu_dynamic' }}
           owner: 'MoeKernel'
           repository: 'scripts'
 
@@ -80,4 +79,4 @@ jobs:
         run: |
           git add build_count.txt
           git commit -m "update build count"
-          git push origin ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NO-KSU' && 'noksu_dynamic' }} --force
+          git push origin ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU_DYNAMIC' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'noksu_dynamic' }} --force
