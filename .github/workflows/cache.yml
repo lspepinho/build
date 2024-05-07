@@ -30,7 +30,7 @@ jobs:
         token: ${{ secrets.TOKEN_GITHUB }}
         cron: |
           0 0 * * * # Latest release: ${{ steps.check-for-new-release.outputs.latest_release }}
-        workflow: .github/workflows/cache.yml
+        workflow: cache.yml
         message: "Update cron schedule for new release"
 
     - name: Clone Repo Clang
