@@ -27,7 +27,7 @@ jobs:
     - name: Update cron schedule
       run: |
         latest_release=$(cat latest_release.txt)
-        sed -i "s/cron: '.*'/cron: '0 0 * * *' # Latest release: $latest_release/" github/workflows/cache.yml
+        sed -i "s/cron: '.*'/cron: '0 0 * * *' # Latest release: $latest_release/" .github/workflows/cache.yml
 
     - name: Clone Repo Clang
       uses: MoeKernel/github-repo-action@v3.1
