@@ -1,4 +1,4 @@
-name: Build Kernel (NO_KSU/Dynamic/Fourteen)
+name: Build Kernel (NOKSU/Dynamic/Fourteen)
 
 on:
   workflow_dispatch
