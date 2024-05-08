@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        build_type: ['KSU', 'NO-KSU', "KSU_DYNAMIC", "NOKSU_DYNAMIC"]
+        build_type: ['KSU', 'KSU_DYNAMIC', "NO-KSU", "NOKSU_DYNAMIC"]
 
     steps:
       - name: Clone Repo Android Kernel
