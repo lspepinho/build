@@ -28,7 +28,7 @@ jobs:
           branch: ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU_DYNAMIC' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'noksu_dynamic' }}
           owner: 'MoeKernel'
           repository: 'scripts'
-
+      
       - name: List Branches in Scripts Repository
         working-directory: ./scripts
         run: |
