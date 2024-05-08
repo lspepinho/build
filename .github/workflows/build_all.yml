@@ -39,15 +39,19 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          if [ "${{ steps.clone_scripts.outputs.branch }}" == 'ksu' || "${{ steps.clone_scripts.outputs.branch }}" == 'ksu_dynamic' ]; then
-            chmod +x ksu_update.sh bot.py
-            cp ksu_update.sh build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
-          elif [ "${{ steps.clone_scripts.outputs.branch }}" == 'without-ksu' || "${{ steps.clone_scripts.outputs.branch }}" == 'noksu_dynamic' ]; then
-            chmod +x bot.py
-            cp build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
-          else
-            echo "An error occurred..."
-          fi
+           branch="${{ steps.clone_scripts.outputs.branch }}"
+           echo $branch
+           
+           if [ "$branch" == 'ksu' ] || [ "$branch" == 'ksu_dynamic' ]; then
+             chmod +x ksu_update.sh
+             cp ksu_update.sh build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
+
+           elif [ "$branch" == 'without-ksu' ] || [ "$branch" == 'noksu_dynamic' ]; then
+             cp build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
+
+           else
+             echo "IDK."
+           fi
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
