@@ -1,4 +1,4 @@
-name: Build Kernel (NO-KSU)
+name: Build Kernel (NO-KSU/Fourteen)
 
 on:
   workflow_dispatch
@@ -29,7 +29,6 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x bot.py
           cp bot.py build_count.txt ../android_kernel_xiaomi_ginkgo
       
       - name: Restore Cache
@@ -38,12 +37,6 @@ jobs:
           path: /home/runner/tc
           key: ${{ runner.os }}-tc
         id: tc-cache
-
-      - name: Move Script Clang
-        working-directory: ./scripts
-        run: |
-          chmod +x clang.sh
-          cp clang.sh ../android_kernel_xiaomi_ginkgo
 
       - name: Github Configs
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -76,7 +69,6 @@ jobs:
       - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          cat build_count.txt
           cp build_count.txt ../scripts
 
       - name: Commit Update
