@@ -23,6 +23,14 @@ jobs:
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 
+      - name: Clone Repo Build
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'main'
+          owner: 'MoeKernel'
+          repository: 'build'
+
       - name: Prepare Configuration
         working-directory: ./build
         run: |
