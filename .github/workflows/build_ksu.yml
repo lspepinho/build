@@ -23,10 +23,20 @@ jobs:
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 
+      - name: Clone Repo Build
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'main'
+          owner: 'whyakari'
+          repository: 'build'
+
       - name: Prepare Configuration
+        working-directory: ./build
         run: |
           CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
           echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+          pwd
 
       - name: Set swap to 24G
         uses: MoeKernel/swap@moe
