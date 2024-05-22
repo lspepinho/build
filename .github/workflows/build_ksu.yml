@@ -75,7 +75,7 @@ jobs:
         if: env.ENABLE_CCACHE == 'true'
         uses: MoeKernel/ccache@moe
         with:
-          key: build-kernel-${{ env.DEVICE }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}
+          key: build-kernel
           max-size: 12G
 
       - name: Compile Kernel CI
