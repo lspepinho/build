@@ -10,6 +10,10 @@ jobs:
   build_kernel:
     name: Build Kernel
     runs-on: ubuntu-latest
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_HARDLINK: "true"
 
     strategy:
       matrix:
@@ -23,6 +27,18 @@ jobs:
           branch: ${{ matrix.build_type == 'KSU' && 'fourteen' || matrix.build_type == 'KSU_DYNAMIC' && 'fourteen_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'fourteen_dynamic_noksu' }}
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
+
+      - name: Prepare Configuration
+        working-directory: ./build
+        run: |
+          CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
+          echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+          pwd
+
+      - name: Set swap to 24G
+        uses: MoeKernel/swap@moe
+        with:
+          swap-size-gb: 24
 
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
@@ -41,7 +57,7 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-             cp build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
+          cp build_count.txt bot.py ../android_kernel_xiaomi_ginkgo
 
       - name: Restore Cache
         uses: MoeKernel/cache@v3
@@ -59,7 +75,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get -y --no-install-recommends install python3 python3-pip git make gcc bc bison flex libssl-dev ccache libelf-dev libncurses-dev bc binutils-dev ca-certificates clang cmake curl file flex git libelf-dev libssl-dev lld make ninja-build python3-dev texinfo u-boot-tools xz-utils zlib1g-dev
+          sudo apt-get -y --no-install-recommends install ccache python3 python3-pip git make bc ca-certificates git xz-utils
 
       - name: Pip Install Packages
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -73,10 +89,17 @@ jobs:
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
 
+      - name: Setup ccache
+        if: env.ENABLE_CCACHE == 'true'
+        uses: MoeKernel/ccache@moe
+        with:
+          key: build-kernel
+          max-size: 12G
+
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          python3 bot.py -t dev # or release
+          python3 bot.py -t release # or release
 
       - name: Move CI Build Count
         working-directory: ./android_kernel_xiaomi_ginkgo
