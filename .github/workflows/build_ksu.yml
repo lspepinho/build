@@ -9,6 +9,10 @@ env:
 jobs:
   build_ci:
     runs-on: ubuntu-latest
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_HARDLINK: "true"
 
     steps:
       - name: Clone Repo Kernel
@@ -18,6 +22,11 @@ jobs:
           branch: 'fourteen'
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
+
+      - name: Set swap to 24G
+        uses: MoeKernel/swap@moe
+        with:
+          swap-size-gb: 24
 
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
@@ -48,7 +57,7 @@ jobs:
       - name: Install Dependencies
         run: |
          sudo apt-get update
-         sudo apt-get -y --no-install-recommends install python3 python3-pip git make gcc bc bison flex libssl-dev ccache libelf-dev libncurses-dev bc binutils-dev ca-certificates clang cmake curl file flex git libelf-dev libssl-dev lld make ninja-build python3-dev texinfo u-boot-tools xz-utils zlib1g-dev
+         sudo apt-get -y --no-install-recommends install ccache python3 python3-pip git make gcc bc bison flex libssl-dev ccache libelf-dev libncurses-dev bc binutils-dev ca-certificates clang cmake curl file flex git libelf-dev libssl-dev lld make ninja-build python3-dev texinfo u-boot-tools xz-utils zlib1g-dev
 
       - name: Pip Install Packages
         working-directory: ./android_kernel_xiaomi_ginkgo
@@ -61,6 +70,13 @@ jobs:
          echo "API_ID=${{ secrets.API_ID }}" >> .env
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
+      - name: Setup ccache
+        if: env.ENABLE_CCACHE == 'true'
+        uses: MoeKernel/ccache@moe
+        with:
+          key: build-kernel-${{ env.DEVICE }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}
+          max-size: 12G
 
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
