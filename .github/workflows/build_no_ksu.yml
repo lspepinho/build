@@ -35,6 +35,18 @@ jobs:
         with:
           swap-size-gb: 24
 
+      - name: Prepare Configuration
+        working-directory: ./build
+        run: |
+          CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
+          echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+          pwd
+
+      - name: Set swap to 24G
+        uses: MoeKernel/swap@moe
+        with:
+          swap-size-gb: 24
+
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
         with:
@@ -76,6 +88,13 @@ jobs:
          echo "API_ID=${{ secrets.API_ID }}" >> .env
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
+      - name: Setup ccache
+        if: env.ENABLE_CCACHE == 'true'
+        uses: MoeKernel/ccache@moe
+        with:
+          key: build-kernel
+          max-size: 12G
 
       - name: Setup ccache
         if: env.ENABLE_CCACHE == 'true'
