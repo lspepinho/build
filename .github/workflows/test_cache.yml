@@ -1,0 +1,36 @@
+name: Random Cache Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Cache dependencies
+        uses: MoeKernel/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Generate random cache key
+        id: generate-cache-key
+        run: |
+          echo "::set-output name=cache-key::$(openssl rand -hex 12)"
+
+      - name: Save cache
+        uses: MoeKernel/cache/save@v3
+        with:
+          key: ${{ steps.generate-cache-key.outputs.cache-key }}
+          path: ~/.random-cache
+
+      - name: Display cache key
+        run: |
+           echo "Random cache key: ${{ steps.generate-cache-key.outputs.cache-key }}"
+           
