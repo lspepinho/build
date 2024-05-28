@@ -11,5 +11,6 @@ jobs:
         uses: MoeKernel/purge-cache@v3
         with:
           max-age: 1
+          debug: True
           cache_key: 'Linux-text-file-cache-v2'
           token: ${{ secrets.TOKEN_GITHUB }}
