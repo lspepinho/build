@@ -12,5 +12,5 @@ jobs:
         with:
           max-age: 1
           debug: True
-          cache-key: 'Linux-text-file-cache-v2'
+          cache_key: 'Linux-text-file-cache-v2'
           token: ${{ secrets.TOKEN_GITHUB }}
