@@ -12,7 +12,7 @@ jobs:
         with:
           max-age: 1
           accessed: false
-          created: false
+          created: true
           debug: true
           cache_key: 'Linux-text-file-cache-v2'
           token: ${{ secrets.TOKEN_GITHUB }}
