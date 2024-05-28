@@ -17,6 +17,12 @@ jobs:
         uses: MoeKernel/cache@v3
         with:
           path: random.txt
+          key: ${{ runner.os }}-text-file-cache
+
+      - name: Save cache
+        uses: MoeKernel/cache@v3
+        with:
+          path: random.txt
           key: ${{ runner.os }}-text-file-cache-v2
 
       - name: Display cache key
