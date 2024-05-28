@@ -38,8 +38,8 @@ jobs:
         uses: MoeKernel/purge-cache@v3
         with:
           max-age: 1
-          # accessed: true
-          # created: true
+          accessed: false
+          created: true
           debug: true
           cache_key: 'Linux-tc'
           token: ${{ secrets.TOKEN_GITHUB }}
