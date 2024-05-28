@@ -1,0 +1,18 @@
+name: Purge Cache Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge Cache
+        uses: MoeKernel/purge-cache@v3
+        with:
+          max-age: 1
+          accessed: false
+          created: false
+          debug: true
+          cache_key: 'Linux-text-file-cache-v2'
+          token: ${{ secrets.TOKEN_GITHUB }}
