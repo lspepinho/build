@@ -36,7 +36,6 @@ jobs:
         run: |
           CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
           echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
-          pwd
 
       - name: Set swap to 24G
         uses: MoeKernel/swap@moe
@@ -53,8 +52,8 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x ksu_update.sh bot.py
-          cp bot.py build_count.txt ksu_update.sh ../android_kernel_xiaomi_ginkgo
+          chmod +x ksu_update.sh bot.py bot.sh
+          cp bot.sh bot.py build_count.txt ksu_update.sh ../android_kernel_xiaomi_ginkgo
 
       - name: Restore Cache
         uses: MoeKernel/cache@v3
@@ -74,10 +73,10 @@ jobs:
          sudo apt-get update
          sudo apt-get -y --no-install-recommends install ccache python3 python3-pip git make bc ca-certificates git xz-utils
 
-      - name: Pip Install Packages
-        working-directory: ./android_kernel_xiaomi_ginkgo
-        run: |
-          pip install Pyrogram TgCrypto load_dotenv
+      #- name: Pip Install Packages
+      #  working-directory: ./android_kernel_xiaomi_ginkgo
+      #  run: |
+      #    # pip install Pyrogram TgCrypto load_dotenv
 
       - name: Export Variables
         run: |
@@ -96,7 +95,8 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          python3 bot.py -t dev # or release.
+          # python3 bot.py -t dev # or release.
+          ./bot.sh
           
       - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
