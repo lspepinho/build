@@ -1,4 +1,4 @@
-name: Random Cache Workflow
+name: Save Text File Cache
 
 on:
   push:
@@ -10,27 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: Cache dependencies
-        uses: MoeKernel/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-
-      - name: Generate random cache key
-        id: generate-cache-key
-        run: |
-          echo "::set-output name=cache-key::$(openssl rand -hex 12)"
+      - name: Create random text file
+        run: echo "$(openssl rand -base64 32)" > random.txt
 
       - name: Save cache
-        uses: MoeKernel/cache/save@v3
+        uses: MoeKernel/cache@v3
         with:
-          key: ${{ steps.generate-cache-key.outputs.cache-key }}
-          path: ~/.random-cache
+          path: random.txt
+          key: ${{ runner.os }}-text-file-cache
 
       - name: Display cache key
         run: |
-           echo "Random cache key: ${{ steps.generate-cache-key.outputs.cache-key }}"
-           
+          echo "Text file cache key: ${{ runner.os }}-text-file-cache"
