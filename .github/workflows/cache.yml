@@ -35,12 +35,13 @@ jobs:
         continue-on-error: true
 
       - name: Purge Cache
-        uses: MoeKernel/purge-cache@v2.1.0
+        uses: MoeKernel/purge-cache@v3
         with:
-          accessed: true
-          created: true
-          debug: true
           max-age: 1
+          # accessed: true
+          # created: true
+          debug: true
+          cache_key: 'Linux-tc'
           token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Download Clang
