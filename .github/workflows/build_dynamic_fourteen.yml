@@ -74,11 +74,6 @@ jobs:
          sudo apt-get update
          sudo apt-get -y --no-install-recommends install ccache python3 python3-pip git make bc ca-certificates git xz-utils
 
-      - name: Pip Install Packages
-        working-directory: ./android_kernel_xiaomi_ginkgo
-        run: |
-          pip install Pyrogram TgCrypto load_dotenv
-
       - name: Export Variables
         run: |
          echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
@@ -96,7 +91,7 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          python3 bot.py -t dev # or release.
+          ./bot.sh
 
       - name: Move CI Build
         working-directory: ./android_kernel_xiaomi_ginkgo
