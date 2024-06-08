@@ -65,8 +65,8 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          chmod +x moe.sh bot.sh
-          cp build_count.txt moe.sh bot.sh ../android_kernel_xiaomi_ginkgo
+          chmod +x moe.sh bot.sh ksu_update.sh
+          cp build_count.txt moe.sh bot.sh ksu_update.sh ../android_kernel_xiaomi_ginkgo
 
       - name: Restore Cache
         uses: MoeKernel/cache@v3
