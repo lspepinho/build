@@ -91,7 +91,6 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
-          # python3 bot.py -t dev # or release.
           ./bot.sh
           
       - name: Move CI Build
