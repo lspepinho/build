@@ -92,6 +92,7 @@ jobs:
           pip install Pyrogram TgCrypto load_dotenv
 
       - name: Export Variables
+        working-directory: ./android_kernel_xiaomi_ginkgo
         run: |
          echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
          echo "API_ID=${{ secrets.API_ID }}" >> .env
