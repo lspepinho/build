@@ -57,17 +57,17 @@ jobs:
       - name: Setup GCC / GCC32 / Clang
         run: |
           TC_DIR="$HOME/tc/clang-19.0.0"
-          GCC_64_DIR="$HOME/tc/aarch64-linux-android-14.0"
-          GCC_32_DIR="$HOME/tc/arm-linux-androideabi-14.0"
+          GCC_64_DIR="$HOME/tc/aarch64-linux-android-15.0"
+          GCC_32_DIR="$HOME/tc/arm-linux-androideabi-15.0"
 
           if ! [ -d "${GCC_64_DIR}" ]; then
               echo "gcc not found! Cloning to ${GCC_64_DIR}..."
-              git clone --depth=1 -b 14 https://github.com/ZyCromerZ/aarch64-zyc-linux-gnu ${GCC_64_DIR}
+              git clone --depth=1 -b 15 https://github.com/whyakari/aarch64-zyc-linux-gnu ${GCC_64_DIR}
           fi
 
           if ! [ -d "${GCC_32_DIR}" ]; then
               echo "gcc_32 not found! Cloning to ${GCC_32_DIR}..."
-              git clone --depth=1 -b 14 https://github.com/ZyCromerZ/arm-zyc-linux-gnueabi ${GCC_32_DIR}
+              git clone --depth=1 -b 15 https://github.com/whyakari/arm-zyc-linux-gnueabi ${GCC_32_DIR}
           fi
 
       - name: Cache Create
