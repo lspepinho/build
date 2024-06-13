@@ -39,4 +39,4 @@ jobs:
     - name: Run Update Script
       working-directory: ./scripts
       run: |
-        python cherry_pick_and_commit.py
+        python update_kernel.py
