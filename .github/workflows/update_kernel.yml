@@ -3,7 +3,7 @@ name: Update Kernel
 on:
   schedule:
     - cron: '0 0 * * 0' 
-    # Executa a cada domingo às 00:00
+    # Runs every Sunday at 00:00
   workflow_dispatch:
 
 jobs:
@@ -30,6 +30,12 @@ jobs:
         branch: 'ksu'
         repository: 'scripts'
 
+    - name: Github Configs
+      working-directory: ./scripts
+      run: |
+        git config --global user.email "akariondev@gmail.com"
+        git config --global user.name "ginkgo"
+  
     - name: Run Update Script
       working-directory: ./scripts
       run: |
