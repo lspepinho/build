@@ -30,6 +30,10 @@ jobs:
         branch: 'ksu'
         repository: 'scripts'
 
+    - name: Set up GitHub Token
+      run: |
+        echo "TOKEN_GITHUB=${{ secrets.TOKEN_GITHUB }}" >> .env
+
     - name: Github Configs
       working-directory: ./scripts
       run: |
