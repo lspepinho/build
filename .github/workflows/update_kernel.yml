@@ -21,7 +21,7 @@ jobs:
 
     - name: Install Requests Library
       run: |
-        pip install requests
+        pip install requests load_dotenv
 
     - name: Clone Repo Scripts
       uses: MoeKernel/github-repo-action@v3.1
