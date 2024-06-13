@@ -1,0 +1,28 @@
+name: Update Kernel
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' 
+    # Executa a cada domingo às 00:00
+  workflow_dispatch:
+
+jobs:
+  update_kernel:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Scripts Repo
+      uses: MoeKernel/checkout@v4.1.6
+            
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get -y --no-install-recommends install python3 python3-pip git make bc ca-certificates git xz-utils
+
+    - name: Install Requests Library
+      run: |
+        pip install requests
+
+    - name: Run Update Script
+      run: |
+        python cherry_pick_and_commit.py
