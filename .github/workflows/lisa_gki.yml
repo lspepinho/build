@@ -70,5 +70,5 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./kernel_xiaomi_lisa
         run: |
-          chmod +x build-gki.sh
-          ./build-gki.sh
+          chmod +x build.sh
+          ./build.sh
