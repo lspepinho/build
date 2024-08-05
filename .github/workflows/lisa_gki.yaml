@@ -1,0 +1,73 @@
+name: Build Kernel LISA (KSU/Fourteen)
+
+on:
+  workflow_dispatch:
+
+env:
+  TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_HARDLINK: "true"
+
+    steps:
+      - name: Clone Repo Kernel
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'fourteen'
+          owner: 'whyakari'
+          repository: 'android_kernel_xiaomi_lisa'
+
+      - name: Clone Repo Build
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'main'
+          owner: 'MoeKernel'
+          repository: 'build'
+
+      - name: Prepare Configuration
+        working-directory: ./build
+        run: |
+          CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
+          echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+
+      - name: Set swap to 24G
+        uses: MoeKernel/swap@moe
+        with:
+          swap-size-gb: 24
+
+      - name: Restore Cache
+        uses: MoeKernel/cache@v3
+        with:
+          path: /home/runner/tc
+          key: ${{ runner.os }}-tc
+        id: tc-cache
+
+      - name: Github Configs
+        working-directory: ./android_kernel_xiaomi_lisa
+        run: |
+          git config --global user.email "akariondev@gmail.com"
+          git config --global user.name "lisa"
+  
+      - name: Install Dependencies
+        run: |
+         sudo apt-get update
+         sudo apt-get -y --no-install-recommends install ccache python3 python3-pip git make bc ca-certificates git xz-utils
+
+      - name: Setup ccache
+        if: env.ENABLE_CCACHE == 'true'
+        uses: MoeKernel/ccache@moe
+        with:
+          key: build-kernel
+          max-size: 12G
+
+      - name: Compile Kernel CI
+        working-directory: ./android_kernel_xiaomi_lisa
+        run: |
+          ./build-gki.sh
