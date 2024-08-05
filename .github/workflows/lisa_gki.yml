@@ -21,7 +21,7 @@ jobs:
           depth: 1
           branch: 'fourteen'
           owner: 'whyakari'
-          repository: 'android_kernel_xiaomi_lisa'
+          repository: 'kernel_xiaomi_lisa'
 
       - name: Clone Repo Build
         uses: MoeKernel/github-repo-action@v3.1
@@ -50,7 +50,7 @@ jobs:
         id: tc-cache
 
       - name: Github Configs
-        working-directory: ./android_kernel_xiaomi_lisa
+        working-directory: ./kernel_xiaomi_lisa
         run: |
           git config --global user.email "akariondev@gmail.com"
           git config --global user.name "lisa"
@@ -68,7 +68,7 @@ jobs:
           max-size: 12G
 
       - name: Compile Kernel CI
-        working-directory: ./android_kernel_xiaomi_lisa
+        working-directory: ./kernel_xiaomi_lisa
         run: |
           chmod +x build-gki.sh
           ./build-gki.sh
