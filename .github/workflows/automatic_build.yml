@@ -28,12 +28,8 @@ jobs:
       run: |
         pip install load_dotenv
 
-    - name: Set up GitHub Token
-      working-directory: ./cli
-      run: |
-        echo "TOKEN_GITHUB=${{ secrets.TOKEN_GITHUB }}" >> .env
-
     - name: Execute Upstream
       working-directory: ./cli
       run: |
+        echo "TOKEN_GITHUB=${{ secrets.TOKEN_GITHUB }}" >> .env
         python upstream.py
