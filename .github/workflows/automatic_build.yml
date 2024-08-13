@@ -17,7 +17,7 @@ jobs:
       run: |
         sudo apt install git python3 python3-pip -y
   
-    - name: Clone Repo Scripts
+    - name: Clone Repo cli
       uses: MoeKernel/github-repo-action@v3.1
       with:
         owner: 'MoeKernel'
