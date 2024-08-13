@@ -30,7 +30,7 @@ jobs:
     - name: Clone Repo Kernel
       uses: MoeKernel/github-repo-action@v3.1
       with:
-        depth: 1
+        #depth: 1
         branch: 'fourteen'
         owner: 'MoeKernel'
         repository: 'android_kernel_xiaomi_ginkgo'
