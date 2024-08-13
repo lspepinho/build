@@ -15,25 +15,20 @@ jobs:
 
     - name: Install dependencies
       run: |
-        sudo apt install git python3 -y
-        
-    - name: Clone Repo Kernel
-      run: |
-        git clone https://github.com/MoeKernel/android_kernel_xiaomi_ginkgo
-
+        sudo apt install git python3 python3-pip -y
+  
     - name: Clone Repo Scripts
       uses: MoeKernel/github-repo-action@v3.1
       with:
         owner: 'MoeKernel'
-        branch: 'ksu'
-        repository: 'scripts'
+        branch: 'main'
+        repository: 'cli'
 
-    - name: Move Scripts
-      working-directory: ./scripts
+    - name: Install Requests Library
       run: |
-        cp upstream.py ../android_kernel_xiaomi_ginkgo
+        pip install requests load_dotenv
 
-    - name: Execute upstream script
-      working-directory: ./android_kernel_xiaomi_ginkgo
+    - name: Execute Upstream
+      working-directory: ./cli
       run: |
         python upstream.py
