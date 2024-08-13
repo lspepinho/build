@@ -1,0 +1,27 @@
+name: Upstream Kernel from OpenELA
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # Schedule the workflow to run daily (00:00 UTC)
+
+jobs:
+  upstream:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12.4'
+
+    - name: Install dependencies
+      run: |
+        pip install --upgrade pip
+        
+    - name: Execute upstream script
+      run: |
+        python3 upstream.py
