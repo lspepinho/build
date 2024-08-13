@@ -24,4 +24,4 @@ jobs:
         
     - name: Execute upstream script
       run: |
-        python3 upstream.py
+        python .github/ci/upstream.py
