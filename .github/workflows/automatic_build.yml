@@ -24,16 +24,29 @@ jobs:
         branch: 'main'
         repository: 'cli'
 
+    - name: Clone Repo Kernel
+      uses: MoeKernel/github-repo-action@v3.1
+      with:
+        depth: 1
+        branch: 'fourteen'
+        owner: 'MoeKernel'
+        repository: 'android_kernel_xiaomi_ginkgo'
+
     - name: Install Library Pip
       run: |
         pip install load_dotenv
 
     - name: Set up GitHub Token
-      working-directory: ./cli
+      working-directory: ./android_kernel_xiaomi_ginkgo
       run: |
         echo "TOKEN_GITHUB=${{ secrets.TOKEN_GITHUB }}" >> .env
 
-    - name: Execute Upstream
+    - name: Move Scripts
       working-directory: ./cli
+      run: |
+        cp upstream.py ../android_kernel_xiaomi_ginkgo
+
+    - name: Execute Upstream
+      working-directory: ./android_kernel_xiaomi_ginkgo
       run: |
         python upstream.py
