@@ -22,6 +22,7 @@ jobs:
         git clone https://github.com/MoeKernel/android_kernel_xiaomi_ginkgo
         
     - name: Execute upstream script
+      working-directory: ./android_kernel_xiaomi_ginkgo
       run: |
-        cd ~/home/runner/work/build/build
-        python .github/ci/upstream.py
+        cp .github/ci/upstream.py .
+        python upstream.py
