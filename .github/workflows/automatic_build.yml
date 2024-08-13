@@ -20,9 +20,20 @@ jobs:
     - name: Clone Repo Kernel
       run: |
         git clone https://github.com/MoeKernel/android_kernel_xiaomi_ginkgo
-        
+
+    - name: Clone Repo Scripts
+      uses: MoeKernel/github-repo-action@v3.1
+      with:
+        owner: 'MoeKernel'
+        branch: 'ksu'
+        repository: 'scripts'
+
+    - name: Move Scripts
+      working-directory: ./scripts
+      run: |
+        cp upstream.py ../android_kernel_xiaomi_ginkgo
+
     - name: Execute upstream script
       working-directory: ./android_kernel_xiaomi_ginkgo
       run: |
-        cp .github/ci/upstream.py .
         python upstream.py
