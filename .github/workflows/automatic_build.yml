@@ -24,9 +24,9 @@ jobs:
         branch: 'main'
         repository: 'cli'
 
-    - name: Install Requests Library
+    - name: Install Library Pip
       run: |
-        pip install requests load_dotenv
+        pip install load_dotenv
 
     - name: Set up GitHub Token
       run: |
