@@ -20,10 +20,8 @@ jobs:
     - name: Clone Repo Kernel
       run: |
         git clone https://github.com/MoeKernel/android_kernel_xiaomi_ginkgo
-        pwd
-        ls android_kernel_xiaomi_ginkgo
         
     - name: Execute upstream script
       run: |
-        pwd
+        cd ~/home/runner/work/build/build
         python .github/ci/upstream.py
