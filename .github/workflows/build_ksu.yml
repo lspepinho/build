@@ -2,8 +2,8 @@ name: Build Kernel (KSU/Fourteen)
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 1 * *"
+#  schedule:
+#    - cron: "0 0 1 * *"
 
 env:
   TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
