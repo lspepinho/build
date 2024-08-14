@@ -2,8 +2,8 @@ name: Upstream Kernel from OpenELA
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * *'  # Schedule the workflow to run daily (00:00 UTC)
+#  schedule:
+#    - cron: '0 0 * * *'  # Schedule the workflow to run daily (00:00 UTC)
 
 env:
   TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
