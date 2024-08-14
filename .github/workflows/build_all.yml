@@ -127,4 +127,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU_DYNAMIC' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'noksu_dynamic' }} --force
+          git push origin ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU_DYNAMIC' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'noksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'noksu_dynamic' }} --force
