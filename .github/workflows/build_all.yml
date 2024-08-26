@@ -54,7 +54,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         id: clone_scripts
         with:
-          branch: ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU_DYNAMIC' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'without-ksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'noksu_dynamic' }}
+          branch: ${{ matrix.build_type == 'KSU' && 'ksu' || matrix.build_type == 'KSU_DYNAMIC' && 'ksu_dynamic' || matrix.build_type == 'NO-KSU' && 'noksu' || matrix.build_type == 'NOKSU_DYNAMIC' && 'noksu_dynamic' }}
           owner: 'MoeKernel'
           repository: 'scripts'
       
