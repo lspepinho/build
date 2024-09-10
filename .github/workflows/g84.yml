@@ -1,0 +1,34 @@
+name: Build for Moto G84 5G
+
+on:
+
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: true
+      matrix:
+        device: [g84]
+
+    name: "Build for ${{matrix.device}}"
+
+    steps:
+      - name: Clone Repo Scripts
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          owner: 'MoeKernel'
+          branch: 'ksu'
+          repository: 'scripts'
+
+      - name: Setup Toolchains
+        working-directory: ./scripts
+        run: |
+          chmod +x init_clang.sh
+          ./init_clang.sh
+
+      - name: Run build
+        run: |
+          ./ksu_update.sh
+          DEVICE=${{matrix.device}} ./build.sh
