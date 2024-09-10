@@ -15,6 +15,15 @@ jobs:
     name: "Build for ${{matrix.device}}"
 
     steps:
+
+      - name: Clone Repo Kernel
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'fourteen'
+          owner: 'MoeKernel'
+          repository: 'android_kernel_motorola_bangkk'
+
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
         with:
