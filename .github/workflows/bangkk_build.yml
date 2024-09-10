@@ -33,7 +33,7 @@ jobs:
           cp init_clang.sh ksu_update.sh ../android_kernel_motorola_bangkk
 
       - name: Setup Toolchains
-        working-directory: ./scripts
+        working-directory: ./android_kernel_motorola_bangkk
         run: |
           chmod +x init_clang.sh ksu_update.sh
 
