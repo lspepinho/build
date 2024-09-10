@@ -11,10 +11,7 @@ jobs:
       matrix:
         device: [g84]
 
-    name: "Build for ${{matrix.device}}"
-
     steps:
-
       - name: Clone Repo Kernel
         uses: MoeKernel/github-repo-action@v3.1
         with:
