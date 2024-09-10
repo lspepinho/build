@@ -38,6 +38,7 @@ jobs:
           ./init_clang.sh
 
       - name: Run build
+        working-directory: ./android_kernel_motorola_bangkk
         run: |
           ./ksu_update.sh
           DEVICE=${{matrix.device}} ./build.sh
