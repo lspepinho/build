@@ -30,16 +30,16 @@ jobs:
       - name: Move Scripts
         working-directory: ./scripts
         run: |
-          cp ksu_update.sh ../android_kernel_motorola_bangkk
+          cp init_clang.sh ksu_update.sh ../android_kernel_motorola_bangkk
 
       - name: Setup Toolchains
         working-directory: ./scripts
         run: |
-          chmod +x init_clang.sh
-          ./init_clang.sh
+          chmod +x init_clang.sh ksu_update.sh
 
       - name: Run build
         working-directory: ./android_kernel_motorola_bangkk
         run: |
           ./ksu_update.sh
-          DEVICE=${{matrix.device}} ./build.sh
+          ./init_clang.sh
+          ./build.sh
