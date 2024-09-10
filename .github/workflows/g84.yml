@@ -29,6 +29,11 @@ jobs:
           owner: 'MoeKernel'
           branch: 'ksu'
           repository: 'scripts'
+          
+      - name: Move Scripts
+        working-directory: ./scripts
+        run: |
+          cp ksu_update.sh ../android_kernel_motorola_bangkk
 
       - name: Setup Toolchains
         working-directory: ./scripts
