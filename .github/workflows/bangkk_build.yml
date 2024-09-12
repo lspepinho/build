@@ -20,26 +20,7 @@ jobs:
           owner: 'MoeKernel'
           repository: 'android_kernel_motorola_bangkk'
 
-      - name: Clone Repo Scripts
-        uses: MoeKernel/github-repo-action@v3.1
-        with:
-          owner: 'MoeKernel'
-          branch: 'ksu'
-          repository: 'scripts'
-          
-      - name: Move Scripts
-        working-directory: ./scripts
-        run: |
-          cp init_clang.sh ksu_update.sh ../android_kernel_motorola_bangkk
-
-      - name: Setup Toolchains
-        working-directory: ./android_kernel_motorola_bangkk
-        run: |
-          chmod +x init_clang.sh ksu_update.sh
-
       - name: Run build
         working-directory: ./android_kernel_motorola_bangkk
         run: |
-          ./ksu_update.sh
-          ./init_clang.sh
           ./build.sh
