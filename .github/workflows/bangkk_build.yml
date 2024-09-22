@@ -23,4 +23,5 @@ jobs:
       - name: Run build
         working-directory: ./android_kernel_motorola_bangkk
         run: |
+          chmod +x build.sh
           ./build.sh
