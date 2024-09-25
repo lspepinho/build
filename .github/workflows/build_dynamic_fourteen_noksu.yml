@@ -1,4 +1,4 @@
-name: Build Kernel (NOKSU/Dynamic/Fourteen)
+name: Build Kernel ginkgo (NOKSU/Dynamic/Fourteen)
 
 on:
   workflow_dispatch
