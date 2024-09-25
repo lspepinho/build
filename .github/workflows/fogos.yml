@@ -1,4 +1,4 @@
-name: Build for Moto G34 5G
+name: Build G34 5G (Fourteen)
 
 on:
   workflow_dispatch:
