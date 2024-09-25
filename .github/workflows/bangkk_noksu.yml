@@ -1,4 +1,4 @@
-name: Build Kernel G84 5G (NOKSU/Fourteen)
+name: Build Kernel bangkk (NO-KSU/Fourteen)
 
 on:
   workflow_dispatch:
