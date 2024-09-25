@@ -1,4 +1,4 @@
-name: Build G34 5G (Fourteen)
+name: Build Kernel fogos (Fourteen)
 
 on:
   workflow_dispatch:
