@@ -66,7 +66,7 @@ jobs:
         working-directory: ./android_kernel_motorola_bangkk
         run: |
           git config --global user.email "akariondev@gmail.com"
-          git config --global user.name "ginkgo"
+          git config --global user.name "bangkk"
   
       - name: Install Dependencies
         run: |
