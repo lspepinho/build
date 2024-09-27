@@ -25,14 +25,6 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Purge Cache
-        uses: MoeKernel/purge-cache@v3
-        with:
-          max-age: 1
-          debug: True
-          cache_key: 'Linux-toolchain'
-          token: ${{ secrets.TOKEN_GITHUB }}
-
       - name: Download Clang
         working-directory: ./clang
         run: |
