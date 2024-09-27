@@ -91,6 +91,7 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_motorola_bangkk
         run: |
+          bash <(curl -s "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman") --patch=glibc
           ./bot.sh
 
       - name: Move CI Build
