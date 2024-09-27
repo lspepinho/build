@@ -2,8 +2,6 @@ name: Cache Toolchain
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 * * *"
 
 jobs:
   build:
@@ -36,7 +34,6 @@ jobs:
           token: ${{ secrets.TOKEN_GITHUB }}
 
       - name: Download Clang
-        if: steps.check-update.outcome == 'success'
         working-directory: ./clang
         run: |
           chmod +x toolchain.sh
