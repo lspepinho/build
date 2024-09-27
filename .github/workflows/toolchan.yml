@@ -1,0 +1,54 @@
+name: Cache Toolchain
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repo Clang
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          owner: MoeKernel
+          repository: clang
+          branch: main
+          access-token: ${{ secrets.TOKEN_GITHUB }}
+
+      - name: Export Variables
+        working-directory: ./clang
+        run: |
+          echo "TOKEN_GITHUB=${{ secrets.TOKEN_GITHUB }}" >> .env
+
+      - name: Install Depends
+        working-directory: ./clang
+        run: |
+          pip install -r requirements.txt
+
+      - name: Purge Cache
+        uses: MoeKernel/purge-cache@v3
+        with:
+          max-age: 1
+          debug: True
+          cache_key: 'Linux-toolchain'
+          token: ${{ secrets.TOKEN_GITHUB }}
+
+      - name: Download Clang
+        if: steps.check-update.outcome == 'success'
+        working-directory: ./clang
+        run: |
+          chmod +x toolchain.sh
+          ./toolchain.sh
+
+      - name: Setup Clang
+        run: |
+          TC_DIR="$HOME/tc/clang-17.0.0"
+
+      - name: Cache Create
+        id: tc-toolchain
+        uses: MoeKernel/cache/save@v3
+        with:
+          path: /home/runner/tc/clang-17.0.0
+          key: ${{ runner.os }}-toolchain
