@@ -19,7 +19,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'without-ksu'
+          branch: 'noksu'
           owner: 'MoeKernel'
           repository: 'android_kernel_xiaomi_ginkgo'
 
@@ -47,7 +47,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'without-ksu'
+          branch: 'noksu'
           repository: 'scripts'
 
       - name: Move Scripts
@@ -108,4 +108,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin without-ksu -f
+          git push origin noksu -f
