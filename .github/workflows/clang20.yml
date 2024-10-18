@@ -1,4 +1,4 @@
-name: Build Kernel bangkk (BACKPORT/KSU/Fourteen)
+name: Build Kernel bangkk (BACKPORT/KSU/Fourteen/Clang 20)
 
 on:
   workflow_dispatch:
