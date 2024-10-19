@@ -25,32 +25,17 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Check Clang Update
-        id: check-update
-        working-directory: ./clang
-        run: |
-          python3 update.py
-        continue-on-error: true
-
-      - name: Download Clang
-        if: steps.check-update.outcome == 'success'
-        working-directory: ./clang
-        run: |
-          chmod +x clang.sh
-          ./clang.sh
-
-      - name: Create Release to GitHub.
-        working-directory: ./clang
-        run: |
-          python3 create_release.py
-
       - name: Setup Clang
         run: |
-          TC_DIR="$HOME/tc/clang-20.0.0"
+          TC_DIR="$HOME/tc/clang-17.0.0"
+          if ! [ -d "${TC_DIR}" ]; then
+              echo "Clang not found! Cloning to ${TC_DIR}..."
+              git clone --depth=1 https://gitlab.com/moehacker/clang-r487747.git ${TC_DIR}
+          fi
 
       - name: Cache Create
-        id: tc-toolchain_20
+        id: tc-toolchain
         uses: MoeKernel/cache/save@v3
         with:
-          path: /home/runner/tc/clang-20.0.0
-          key: ${{ runner.os }}-toolchain-20
+          path: /home/runner/tc/clang-17.0.0
+          key: ${{ runner.os }}-toolchain
