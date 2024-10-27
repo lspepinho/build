@@ -1,4 +1,4 @@
-name: Build Kernel bangkk (KSU/Fifteen/Inline)
+name: Build Kernel bangkk (KSU/Fifteen/Inline/gdx)
 
 on:
   workflow_dispatch:
