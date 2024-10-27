@@ -46,7 +46,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'fifteen'
+          branch: 'inline'
           repository: 'scripts'
 
       - name: Move Scripts
@@ -107,4 +107,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin fifteen -f
+          git push origin inline -f
