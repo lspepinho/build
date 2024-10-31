@@ -1,4 +1,4 @@
-name: Build Kernel bangkk (KSU/Fifteen/Inline/fts/nfc)
+name: Build Kernel bangkk (KSU/Fifteen/Inline/fts/nfc/moefs)
 
 on:
   workflow_dispatch:
