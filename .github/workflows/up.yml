@@ -1,4 +1,4 @@
-name: Build Kernel ginkgo (KSU/Fifteen/InlineKSU)
+name: Build Kernel ginkgo (KSU/Fifteen/SUSFS/InlineKSU/Upstream)
 
 on:
   workflow_dispatch:
