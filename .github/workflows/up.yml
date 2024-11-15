@@ -1,0 +1,110 @@
+name: Build Kernel ginkgo (KSU/Fifteen/InlineKSU)
+
+on:
+  workflow_dispatch:
+
+env:
+  TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_HARDLINK: "true"
+
+    steps:
+      - name: Clone Repo Kernel
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'upstream'
+          owner: 'MoeKernel'
+          repository: 'android_kernel_xiaomi_ginkgo'
+
+      - name: Clone Repo Build
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'main'
+          owner: 'MoeKernel'
+          repository: 'build'
+
+      - name: Prepare Configuration
+        working-directory: ./build
+        run: |
+          CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
+          echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+
+      - name: Set swap to 24G
+        uses: MoeKernel/swap@moe
+        with:
+          swap-size-gb: 24
+
+      - name: Clone Repo Scripts
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          owner: 'MoeKernel'
+          branch: 'ksu_inline'
+          repository: 'scripts'
+
+      - name: Move Scripts
+        working-directory: ./scripts
+        run: |
+          chmod +x ksu_update.sh bot.py bot.sh moe.sh
+          cp moe.sh bot.sh bot.py build_count.txt ksu_update.sh ../android_kernel_xiaomi_ginkgo
+
+      - name: Restore Cache
+        uses: MoeKernel/cache@v3
+        with:
+          path: /home/runner/tc
+          key: ${{ runner.os }}-tc
+        id: tc-cache
+
+      - name: Github Configs
+        working-directory: ./android_kernel_xiaomi_ginkgo
+        run: |
+          git config --global user.email "akariondev@gmail.com"
+          git config --global user.name "ginkgo"
+  
+      - name: Install Dependencies
+        run: |
+         sudo apt-get update
+         sudo apt-get -y --no-install-recommends install ccache python3 python3-pip git make bc ca-certificates git xz-utils
+
+      - name: Export Variables
+        working-directory: ./android_kernel_xiaomi_ginkgo
+        run: |
+         echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
+         echo "API_ID=${{ secrets.API_ID }}" >> .env
+         echo "API_HASH=${{ secrets.API_HASH }}" >> .env
+         echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
+      - name: Setup ccache
+        if: env.ENABLE_CCACHE == 'true'
+        uses: MoeKernel/ccache@moe
+        with:
+          key: build-kernel
+          max-size: 12G
+
+      - name: Compile Kernel CI
+        working-directory: ./android_kernel_xiaomi_ginkgo
+        run: |
+          ./bot.sh
+          
+      - name: Move CI Build
+        working-directory: ./android_kernel_xiaomi_ginkgo
+        run: |
+          cp build_count.txt ../scripts
+
+      - name: Commit Update
+        working-directory: ./scripts
+        run: |
+          git config --global user.email "barryofc11@gmail.com"
+          git config --global user.name "Akari"
+          git remote set-url origin https://${{ secrets.TOKEN_GITHUB }}@github.com/MoeKernel/scripts.git
+
+          git add build_count.txt
+          git commit -m "update build count"
+          git push origin ksu_inline -f
