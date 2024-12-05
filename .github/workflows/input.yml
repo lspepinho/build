@@ -10,7 +10,7 @@ on:
       scripts_branch:
         description: 'Scripts branch'
         required: true
-        default: ''
+        default: 'goodix'
 
 env:
   TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
