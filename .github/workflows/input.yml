@@ -7,6 +7,10 @@ on:
         description: 'Kernel branch to compile'
         required: true
         default: 'goodix'
+      scripts_branch:
+        description: 'Scripts branch'
+        required: true
+        default: ''
 
 env:
   TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
@@ -51,7 +55,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: ${{ github.event.inputs.kernel_branch }}
+          branch: ${{ github.event.inputs.scripts_branch }}
           repository: 'scripts'
 
       - name: Move Scripts
