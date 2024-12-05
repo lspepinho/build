@@ -116,4 +116,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin ${{ github.event.inputs.kernel_branch }} -f
+          git push origin ${{ github.event.inputs.scripts_branch }} -f
