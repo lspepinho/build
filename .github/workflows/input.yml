@@ -67,7 +67,7 @@ jobs:
       - name: Restore Cache
         uses: MoeKernel/cache@v3
         with:
-          path: /home/runner/tc/clang-17.0.0
+          path: /home/runner/tc/clang-20.0.0
           key: ${{ runner.os }}-toolchain
         id: tc-toolchain
 
