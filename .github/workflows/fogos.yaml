@@ -1,0 +1,110 @@
+name: Build Kernel fogos (KSU)
+
+on:
+  workflow_dispatch:
+
+env:
+  TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    env:
+      CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
+      CCACHE_NOHASHDIR: "true"
+      CCACHE_HARDLINK: "true"
+
+    steps:
+      - name: Clone Repo Kernel
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'fourteen'
+          owner: 'MoeKernel'
+          repository: 'android_kernel_motorola_fogos'
+
+      - name: Clone Repo Build
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          depth: 1
+          branch: 'main'
+          owner: 'MoeKernel'
+          repository: 'build'
+
+      - name: Prepare Configuration
+        working-directory: ./build
+        run: |
+          CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
+          echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+
+      - name: Set swap to 24G
+        uses: MoeKernel/swap@moe
+        with:
+          swap-size-gb: 24
+
+      - name: Clone Repo Scripts
+        uses: MoeKernel/github-repo-action@v3.1
+        with:
+          owner: 'MoeKernel'
+          branch: 'fogos_ksu'
+          repository: 'scripts'
+
+      - name: Move Scripts
+        working-directory: ./scripts
+        run: |
+          chmod +x bot.py bot.sh ksu_update.sh moe.sh
+          cp moe.sh ksu_update.sh bot.sh bot.py build_count.txt ../android_kernel_motorola_fogos
+
+      - name: Restore Cache
+        uses: MoeKernel/cache@v3
+        with:
+          path: /home/runner/tc/clang-17.0.0
+          key: ${{ runner.os }}-toolchain
+        id: tc-toolchain
+
+      - name: Github Configs
+        working-directory: ./android_kernel_motorola_fogos
+        run: |
+          git config --global user.email "akariondev@gmail.com"
+          git config --global user.name "fogos"
+  
+      - name: Install Dependencies
+        run: |
+         sudo apt-get update
+         sudo apt-get -y --no-install-recommends install libarchive-tools cpio flex bc ccache python3 python3-pip git make bc ca-certificates git xz-utils
+
+      - name: Export Variables
+        working-directory: ./android_kernel_motorola_fogos
+        run: |
+         echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
+         echo "API_ID=${{ secrets.API_ID }}" >> .env
+         echo "API_HASH=${{ secrets.API_HASH }}" >> .env
+         echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
+      - name: Setup ccache
+        if: env.ENABLE_CCACHE == 'true'
+        uses: MoeKernel/ccache@moe
+        with:
+          key: buildd-kernel
+          max-size: 12G
+
+      - name: Compile Kernel CI
+        working-directory: ./android_kernel_motorola_fogos
+        run: |
+          ./bot.sh
+
+      - name: Move CI Build
+        working-directory: ./android_kernel_motorola_fogos
+        run: |
+          cp build_count.txt ../scripts
+
+      - name: Commit Update
+        working-directory: ./scripts
+        run: |
+          git config --global user.email "barryofc11@gmail.com"
+          git config --global user.name "Akari"
+          git remote set-url origin https://${{ secrets.TOKEN_GITHUB }}@github.com/MoeKernel/scripts.git
+
+          git add build_count.txt
+          git commit -m "update build count"
+          git push origin fogos_ksu -f
