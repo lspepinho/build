@@ -46,7 +46,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'ksu_dynamic'
+          branch: 'erofs'
           repository: 'scripts'
 
       - name: Move Scripts
@@ -107,4 +107,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin ksu_dynamic -f
+          git push origin erofs -f
