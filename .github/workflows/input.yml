@@ -17,6 +17,7 @@ env:
 
 jobs:
   ci:
+    name: Compile Kernel for ${{ github.event.inputs.kernel_branch }}
     runs-on: ubuntu-latest
     env:
       CCACHE_COMPILERCHECK: "%compiler% -dumpmachine; %compiler% -dumpversion"
