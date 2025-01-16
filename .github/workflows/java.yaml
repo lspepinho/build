@@ -1,4 +1,4 @@
-name: Build Kernel ginkgo (KSU/Fourteen)
+name: Build Kernel Java
 
 on:
   workflow_dispatch:
