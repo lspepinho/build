@@ -55,6 +55,13 @@ jobs:
           chmod +x ksu_update.sh bot.py bot.sh moe.sh
           cp moe.sh bot.sh bot.py build_count.txt ksu_update.sh ../android_kernel_samsung_s9plus
 
+      - name: Restore Cache
+        uses: MoeKernel/cache@v3
+        with:
+          path: /home/runner/tc
+          key: ${{ runner.os }}-tc
+        id: tc-cache
+
       - name: Github Configs
         working-directory: ./android_kernel_samsung_s9plus
         run: |
@@ -73,6 +80,13 @@ jobs:
          echo "API_ID=${{ secrets.API_ID }}" >> .env
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+
+      - name: Setup ccache
+        if: env.ENABLE_CCACHE == 'true'
+        uses: MoeKernel/ccache@moe
+        with:
+          key: build-kernel
+          max-size: 12G
 
       - name: Compile Kernel CI
         working-directory: ./android_kernel_samsung_s9plus
