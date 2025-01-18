@@ -68,9 +68,9 @@ jobs:
       - name: Restore Cache
         uses: MoeKernel/cache@v3
         with:
-          path: /home/runner/tc/clang-17.0.0
-          key: ${{ runner.os }}-toolchain
-        id: tc-toolchain
+          path: /home/runner/tc
+          key: ${{ runner.os }}-tc
+        id: tc-cache
 
       - name: Github Configs
         working-directory: ./android_kernel_motorola_bangkk
@@ -95,7 +95,7 @@ jobs:
         if: env.ENABLE_CCACHE == 'true'
         uses: MoeKernel/ccache@moe
         with:
-          key: buildd-kernel
+          key: build-kernel
           max-size: 12G
 
       - name: Compile Kernel CI
