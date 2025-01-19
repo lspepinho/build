@@ -19,7 +19,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'susfs'
+          branch: 'fts'
           owner: 'MoeKernel'
           repository: 'android_kernel_motorola_bangkk'
 
@@ -46,7 +46,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'susfs'
+          branch: 'fts'
           repository: 'scripts'
 
       - name: Move Scripts
@@ -107,4 +107,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin susfs -f
+          git push origin fts -f
