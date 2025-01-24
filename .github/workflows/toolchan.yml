@@ -27,15 +27,15 @@ jobs:
 
       - name: Setup Clang
         run: |
-          TC_DIR="$HOME/tc/clang-17.0.0"
+          TC_DIR="$HOME/tc/clang-19.0.0"
           if ! [ -d "${TC_DIR}" ]; then
               echo "Clang not found! Cloning to ${TC_DIR}..."
-              git clone --depth=1 https://gitlab.com/moehacker/clang-r487747.git ${TC_DIR}
+              git clone --depth=1 https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r530567.git ${TC_DIR}
           fi
 
       - name: Cache Create
         id: tc-toolchain
         uses: MoeKernel/cache/save@v3
         with:
-          path: /home/runner/tc/clang-17.0.0
+          path: /home/runner/tc/clang-19.0.0
           key: ${{ runner.os }}-toolchain
