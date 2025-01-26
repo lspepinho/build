@@ -1,4 +1,4 @@
-name: Build Kernel bangkk (KSU/Fifteen/Inline/nfc/moefs)
+name: Build Kernel bangkk (joined the defconfig)
 
 on:
   workflow_dispatch:
