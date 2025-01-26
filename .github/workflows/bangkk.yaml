@@ -46,7 +46,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'goodix'
+          branch: 'bangkk'
           repository: 'scripts'
 
       - name: Move Scripts
@@ -107,4 +107,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin goodix -f
+          git push origin bangkk -f
