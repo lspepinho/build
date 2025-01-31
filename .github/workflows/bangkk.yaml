@@ -22,6 +22,7 @@ jobs:
           branch: 'mixed'
           owner: 'MoeKernel'
           repository: 'android_kernel_motorola_bangkk'
+          token: ''
 
       - name: Clone Repo Build
         uses: MoeKernel/github-repo-action@v3.1
