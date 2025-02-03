@@ -22,6 +22,7 @@ jobs:
           branch: 'fifteen'
           owner: 'MoeKernel'
           repository: 'android_kernel_motorola_fogos'
+          access-token: '${{ secrets.TOKEN_GITHUB }}'
 
       - name: Clone Repo Build
         uses: MoeKernel/github-repo-action@v3.1
