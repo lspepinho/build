@@ -32,6 +32,7 @@ jobs:
           branch: ${{ github.event.inputs.kernel_branch }}
           owner: 'MoeKernel'
           repository: 'android_kernel_motorola_bangkk'
+          access-token: '${{ secrets.TOKEN_GITHUB }}'
 
       - name: Clone Repo Build
         uses: MoeKernel/github-repo-action@v3.1
