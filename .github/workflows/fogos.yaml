@@ -19,7 +19,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'fifteen'
+          branch: 'noinline'
           owner: 'MoeKernel'
           repository: 'android_kernel_motorola_fogos'
           access-token: '${{ secrets.TOKEN_GITHUB }}'
