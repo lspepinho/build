@@ -19,7 +19,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
-          branch: 'noinline'
+          branch: 'fifteen'
           owner: 'MoeKernel'
           repository: 'android_kernel_motorola_fogos'
           access-token: '${{ secrets.TOKEN_GITHUB }}'
@@ -47,7 +47,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
-          branch: 'fogos_ksu'
+          branch: 'fogos'
           repository: 'scripts'
 
       - name: Move Scripts
@@ -108,4 +108,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin fogos_ksu -f
+          git push origin fogos -f
