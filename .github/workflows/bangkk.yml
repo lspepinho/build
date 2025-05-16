@@ -1,4 +1,4 @@
-name: Build Kernel Bangkk (gdx, fts
+name: Build Kernel Bangkk (gdx, fts)
 
 on:
   workflow_dispatch:
