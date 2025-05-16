@@ -109,7 +109,7 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_motorola_bangkk
         run: |
-          ./bot.sh ${{ matrix.build_type }} # gdx|fts
+          ./bot.sh --variant ${{ matrix.build_type }} # gdx|fts
         
       - name: Move CI Build Count
         working-directory: ./android_kernel_motorola_bangkk
