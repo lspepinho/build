@@ -120,4 +120,4 @@ jobs:
 
           git add build_count.txt
           git commit -m "update build count"
-          git push origin ${{ matrix.build_type == 'gdx' && 'gdx' || matrix.build_type == 'fts' && 'fts' }} --force
+          git push origin ${{ matrix.build_type == 'gdx' && 'goodix' || matrix.build_type == 'fts' && 'fts' }} --force
