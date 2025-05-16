@@ -86,11 +86,6 @@ jobs:
           sudo apt-get update
           sudo apt-get -y --no-install-recommends install ccache python3 python3-pip git make bc ca-certificates git xz-utils
 
-      - name: Pip Install Packages
-        working-directory: ./android_kernel_motorola_bangkk
-        run: |
-          pip install Pyrogram TgCrypto load_dotenv
-
       - name: Export Variables
         working-directory: ./android_kernel_motorola_bangkk
         run: |
