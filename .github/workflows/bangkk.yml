@@ -52,7 +52,7 @@ jobs:
         uses: MoeKernel/github-repo-action@v3.1
         id: clone_scripts
         with:
-          branch: ${{ matrix.build_type == 'gdx' && 'gdx' || matrix.build_type == 'fts' && 'fts' }}
+          branch: ${{ matrix.build_type == 'gdx' && 'goodix' || matrix.build_type == 'fts' && 'fts' }}
           owner: 'MoeKernel'
           repository: 'scripts'
       
