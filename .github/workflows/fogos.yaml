@@ -56,13 +56,6 @@ jobs:
           chmod +x bot.py bot.sh ksu_update.sh moe.sh
           cp moe.sh ksu_update.sh bot.sh bot.py build_count.txt ../android_kernel_motorola_fogos
 
-      - name: Restore Cache
-        uses: MoeKernel/cache@v3
-        with:
-          path: /home/runner/tc/clang-19.0.0
-          key: ${{ runner.os }}-toolchain
-        id: tc-toolchain
-
       - name: Github Configs
         working-directory: ./android_kernel_motorola_fogos
         run: |
