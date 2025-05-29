@@ -55,25 +55,12 @@ jobs:
           branch: ${{ matrix.build_type == 'gdx' && 'goodix' || matrix.build_type == 'fts' && 'fts' }}
           owner: 'MoeKernel'
           repository: 'scripts'
-      
-      - name: List Branches in Scripts Repository
-        working-directory: ./scripts
-        run: |
-          git fetch --all
-          git branch -a
 
       - name: Move Scripts
         working-directory: ./scripts
         run: |
           chmod +x bot.py bot.sh ksu_update.sh moe.sh
           cp moe.sh ksu_update.sh bot.sh bot.py build_count.txt ../android_kernel_motorola_bangkk
-
-      - name: Restore Cache
-        uses: MoeKernel/cache@v3
-        with:
-          path: /home/runner/tc/clang-19.0.0
-          key: ${{ runner.os }}-toolchain
-        id: tc-toolchain
 
       - name: Github Configs
         working-directory: ./android_kernel_motorola_bangkk
