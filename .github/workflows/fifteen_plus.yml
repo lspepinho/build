@@ -43,10 +43,10 @@ jobs:
           echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
           pwd
 
-      - name: Set swap to 24G
+      - name: Set swap to 4G
         uses: MoeKernel/swap@moe
         with:
-          swap-size-gb: 24
+          swap-size-gb: 4
 
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
