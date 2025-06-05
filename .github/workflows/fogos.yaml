@@ -1,4 +1,4 @@
-name: Build Kernel fogos (Fifteen/KSU)
+name: Build Kernel fogos Fifteen
 
 on:
   workflow_dispatch:
