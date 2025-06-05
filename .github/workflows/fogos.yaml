@@ -41,7 +41,7 @@ jobs:
       - name: Set swap to 24G
         uses: MoeKernel/swap@moe
         with:
-          swap-size-gb: 24
+          swap-size-gb: 10
 
       - name: Clone Repo Scripts
         uses: MoeKernel/github-repo-action@v3.1
@@ -65,7 +65,7 @@ jobs:
       - name: Install Dependencies
         run: |
          sudo apt-get update
-         sudo apt-get -y --no-install-recommends install libarchive-tools cpio flex bc ccache python3 python3-pip git make bc ca-certificates git xz-utils
+         sudo apt-get -y --no-install-recommends install libarchive-tools cpio flex bc git make git
 
       - name: Export Variables
         working-directory: ./android_kernel_motorola_fogos
@@ -74,13 +74,6 @@ jobs:
          echo "API_ID=${{ secrets.API_ID }}" >> .env
          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
-
-      - name: Setup ccache
-        if: env.ENABLE_CCACHE == 'true'
-        uses: MoeKernel/ccache@moe
-        with:
-          key: buildd-kernel
-          max-size: 12G
 
       - name: Compile Kernel CI
         working-directory: ./android_kernel_motorola_fogos
