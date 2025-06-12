@@ -15,7 +15,7 @@ jobs:
       CCACHE_HARDLINK: "true"
 
     steps:
-      - name: Clone Repo Kernel
+      - name: Clone Kernel Repo
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
@@ -24,7 +24,7 @@ jobs:
           repository: 'android_kernel_motorola_fogos'
           access-token: '${{ secrets.TOKEN_GITHUB }}'
 
-      - name: Clone Repo Build
+      - name: Clone Build Repo
         uses: MoeKernel/github-repo-action@v3.1
         with:
           depth: 1
@@ -32,12 +32,12 @@ jobs:
           owner: 'MoeKernel'
           repository: 'build'
 
-      - name: Set swap to 24G
+      - name: Set Swap to 10G
         uses: MoeKernel/swap@moe
         with:
           swap-size-gb: 10
 
-      - name: Clone Repo Scripts
+      - name: Clone Scripts Repo
         uses: MoeKernel/github-repo-action@v3.1
         with:
           owner: 'MoeKernel'
@@ -49,32 +49,32 @@ jobs:
         run: |
           chmod +x bot.py bot.sh ksu_update.sh moe.sh
           cp moe.sh ksu_update.sh bot.sh bot.py build_count.txt ../android_kernel_motorola_fogos
-  
+
       - name: Install Dependencies
         run: |
-         sudo apt-get update
-         sudo apt-get -y --no-install-recommends install libarchive-tools # cpio flex bc git make git
+          sudo apt-get update
+          sudo apt-get -y --no-install-recommends install libarchive-tools
 
-      - name: Export Variables
+      - name: Export Environment Variables
         working-directory: ./android_kernel_motorola_fogos
         run: |
-         echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
-         echo "API_ID=${{ secrets.API_ID }}" >> .env
-         echo "API_HASH=${{ secrets.API_HASH }}" >> .env
-         echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
+          echo "CHAT_ID=${{ secrets.CHAT_ID }}" >> .env
+          echo "API_ID=${{ secrets.API_ID }}" >> .env
+          echo "API_HASH=${{ secrets.API_HASH }}" >> .env
+          echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" >> .env
 
-      - name: Compile Kernel CI
+      - name: Compile Kernel
         working-directory: ./android_kernel_motorola_fogos
         run: |
           ./moe.sh
 
-      - name: Move CI Build
+      - name: Move Build Count File
         working-directory: ./android_kernel_motorola_fogos
         run: |
           cp build_count.txt ../scripts
 
-      - name: Post Artifact
-      - uses: actions/upload-artifact@v4
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: MoeBuild
           path: /home/runner/android_kernel_motorola_fogos/MoeKernel-*
