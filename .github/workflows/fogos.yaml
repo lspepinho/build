@@ -32,12 +32,6 @@ jobs:
           owner: 'MoeKernel'
           repository: 'build'
 
-      - name: Prepare Configuration
-        working-directory: ./build
-        run: |
-          CONFIG_ENV=$(cat config.env | grep -w "CONFIG_ENV" | head -n 1 | cut -d "=" -f 2)
-          echo "ENABLE_CCACHE=$(cat $CONFIG_ENV | grep -w "ENABLE_CCACHE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
-
       - name: Set swap to 24G
         uses: MoeKernel/swap@moe
         with:
@@ -55,12 +49,6 @@ jobs:
         run: |
           chmod +x bot.py bot.sh ksu_update.sh moe.sh
           cp moe.sh ksu_update.sh bot.sh bot.py build_count.txt ../android_kernel_motorola_fogos
-
-      - name: Github Configs
-        working-directory: ./android_kernel_motorola_fogos
-        run: |
-          git config --global user.email "akariondev@gmail.com"
-          git config --global user.name "fogos"
   
       - name: Install Dependencies
         run: |
@@ -78,7 +66,7 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_motorola_fogos
         run: |
-          ./bot.sh
+          ./moe.sh
 
       - name: Move CI Build
         working-directory: ./android_kernel_motorola_fogos
