@@ -78,7 +78,7 @@ jobs:
       - name: Compile Kernel CI
         working-directory: ./android_kernel_motorola_fogos
         run: |
-          ./bot.sh
+          ./moe.sh
 
       - name: Move CI Build
         working-directory: ./android_kernel_motorola_fogos
