@@ -20,8 +20,8 @@ jobs:
         with:
           depth: 1
           branch: 'fifteen'
-          owner: 'MoeKernel'
-          repository: 'android_kernel_motorola_fogos'
+          owner: 'Theimposter65'
+          repository: 'android_kernel_motorola_sm6375'
           access-token: '${{ secrets.TOKEN_GITHUB }}'
 
       - name: Clone Build Repo
@@ -40,7 +40,7 @@ jobs:
       - name: Clone Scripts Repo
         uses: MoeKernel/github-repo-action@v3.1
         with:
-          owner: 'MoeKernel'
+          owner: 'lspepinho'
           branch: 'fogos'
           repository: 'scripts'
 
