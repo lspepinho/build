@@ -20,8 +20,8 @@ jobs:
         with:
           depth: 1
           branch: 'test'
-          owner: 'Theimposter65'
-          repository: 'android_kernel_motorola_sm6375'
+          owner: 'lspepinho'
+          repository: 'android_kernel_motorola_fogos'
           access-token: '${{ secrets.TOKEN_GITHUB }}'
 
       - name: Clone Build Repo
